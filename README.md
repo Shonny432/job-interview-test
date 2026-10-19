@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Interview Trainer
 
-## Getting Started
+Тренажёр для подготовки к собеседованию на позицию frontend-разработчика.
+Темы: Вёрстка, JavaScript, React (включая Redux Toolkit и TanStack Query), Next.js, TypeScript.
+Уровни: Junior, Middle, Senior — по 50 вопросов с тремя вариантами ответа, объяснением и ссылками на литературу.
 
-First, run the development server:
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Структура
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  page.tsx                      — главная: темы и уровни
+  quiz/[topic]/[level]/page.tsx — страница теста (пререндерится для всех тем и уровней)
+components/
+  quiz.tsx                      — клиентский компонент теста
+data/ru/<тема>/<уровень>.ts     — вопросы (по 50 в файле)
+lib/
+  i18n/ru.ts                    — строки интерфейса
+  quiz/catalog.ts               — подключение файлов с вопросами
+  quiz/sources.ts               — реестр литературы (ссылки)
+  quiz/types.ts                 — типы
+```
 
-## Learn More
+## Как добавить вопрос
 
-To learn more about Next.js, take a look at the following resources:
+Добавьте объект в нужный файл `data/ru/<тема>/<уровень>.ts`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+{
+  question: "Текст вопроса, `код` в обратных кавычках",
+  code: "необязательный блок кода",
+  options: ["вариант 1", "вариант 2", "вариант 3"],
+  answer: 0, // индекс правильного варианта
+  explanation: "Почему верно именно так и что не так с остальными вариантами",
+  sources: ["mdn-flexbox"], // ключи из lib/quiz/sources.ts
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Порядок вопросов и вариантов перемешивается при каждом прохождении, поэтому `answer` можно ставить на любую позицию.
+Старайтесь, чтобы правильный вариант не был заметно длиннее остальных — иначе его легко угадать.
 
-## Deploy on Vercel
+## Английская версия (план)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Добавить `lib/i18n/en.ts` той же формы, что `ru.ts`, и папку `data/en/` с той же структурой, затем выбирать словарь и данные по сегменту `[lang]` в маршруте.
