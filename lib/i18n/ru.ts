@@ -36,6 +36,16 @@ export const ru = {
       description: "Типы, дженерики, сужение, утилитарные и условные типы, конфигурация и типизация React.",
       tags: ["Generics", "Narrowing", "Utility types", "tsconfig"],
     },
+    patterns: {
+      title: "Паттерны проектирования",
+      description: "GoF-паттерны в JS и React, SOLID, DRY/KISS/YAGNI, архитектурные подходы: MVC, Flux, FSD, Clean Architecture.",
+      tags: ["GoF", "SOLID", "Architecture", "FSD", "Anti-patterns"],
+    },
+    "system-design": {
+      title: "System Design",
+      description: "Проектирование фронтенда и веб-систем: рендеринг, API, кэширование, авторизация, real-time, масштабирование, деплой.",
+      tags: ["Caching", "API", "Auth", "Real-time", "Scalability"],
+    },
   } satisfies Record<TopicId, { title: string; description: string; tags: string[] }>,
 
   levels: {

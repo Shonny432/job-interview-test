@@ -9,6 +9,8 @@ const topicAccent = {
   react: "from-indigo-500 to-sky-400",
   nextjs: "from-zinc-800 to-zinc-500 dark:from-zinc-200 dark:to-zinc-400",
   typescript: "from-blue-600 to-blue-400",
+  patterns: "from-violet-500 to-fuchsia-400",
+  "system-design": "from-emerald-500 to-teal-400",
 } as const;
 
 export default function Home() {

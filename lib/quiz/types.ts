@@ -1,6 +1,13 @@
 import type { Source, SourceKey } from "./sources";
 
-export type TopicId = "layout" | "javascript" | "react" | "nextjs" | "typescript";
+export type TopicId =
+  | "layout"
+  | "javascript"
+  | "react"
+  | "nextjs"
+  | "typescript"
+  | "patterns"
+  | "system-design";
 export type LevelId = "junior" | "middle" | "senior";
 
 export type AnswerIndex = 0 | 1 | 2;

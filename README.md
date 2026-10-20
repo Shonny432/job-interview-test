@@ -1,7 +1,7 @@
 # Frontend Interview Trainer
 
 Тренажёр для подготовки к собеседованию на позицию frontend-разработчика.
-Темы: Вёрстка, JavaScript, React (включая Redux Toolkit и TanStack Query), Next.js, TypeScript.
+Темы: Вёрстка, JavaScript, React (включая Redux Toolkit и TanStack Query), Next.js, TypeScript, Паттерны проектирования, System Design.
 Уровни: Junior, Middle, Senior — по 50 вопросов с тремя вариантами ответа, объяснением и ссылками на литературу.
 
 ## Запуск
