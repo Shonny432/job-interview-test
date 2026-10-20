@@ -10,6 +10,13 @@ export const ru = {
   notTaken: "Ещё не проходили",
   backToTopics: "← Все темы",
 
+  theme: {
+    label: "Тема оформления",
+    light: "Светлая тема",
+    dark: "Тёмная тема",
+    system: "Как в системе",
+  },
+
   topics: {
     layout: {
       title: "Вёрстка",
