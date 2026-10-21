@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { signIn, signOut, useAuth, type OAuthProvider } from "@/lib/auth/session";
-import { useDictionary } from "@/components/i18n-provider";
+import { useDictionary, useLocale } from "@/components/i18n-provider";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { locales } from "@/lib/i18n/locales";
 
 const pill =
   "inline-flex h-9 items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 text-sm font-medium shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800";
@@ -12,6 +14,7 @@ const menuItem =
 export function AuthMenu() {
   const auth = useAuth();
   const t = useDictionary().auth;
+  const currentLocale = useLocale();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +48,7 @@ export function AuthMenu() {
       >
         <span title={auth.user.name} className="flex items-center gap-2">
           <Avatar name={auth.user.name} url={auth.user.avatarUrl} />
-          <span className="hidden max-w-32 truncate text-sm font-medium sm:inline">{auth.user.name}</span>
+          <span className="hidden text-sm font-medium whitespace-nowrap sm:inline">{auth.user.name}</span>
         </span>
         <button
           type="button"
@@ -56,7 +59,18 @@ export function AuthMenu() {
         >
           <SignOutIcon />
           {/* На узких экранах остаётся только иконка */}
-          <span className="hidden sm:inline">{t.signOut}</span>
+          <span className="hidden sm:inline-grid">
+            {/* Подписи всех языков в одной ячейке: ширина кнопки — по самой длинной и не меняется при смене языка */}
+            {locales.map((locale) => (
+              <span
+                key={locale}
+                aria-hidden={locale !== currentLocale}
+                className={`col-start-1 row-start-1 whitespace-nowrap ${locale === currentLocale ? "" : "invisible"}`}
+              >
+                {getDictionary(locale).auth.signOut}
+              </span>
+            ))}
+          </span>
         </button>
       </div>
     );
