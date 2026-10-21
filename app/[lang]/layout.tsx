@@ -11,7 +11,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales } from "@/lib/i18n/locales";
 import { themeInitScript } from "@/lib/theme";
-import logo from "@/public/logo.png";
+import logoDark from "@/public/logo-dark.png";
+import logoLight from "@/public/logo-light.png";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -32,7 +33,17 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const t = getDictionary(lang);
-  return { title: t.appTitle, description: t.appSubtitle };
+  return {
+    title: t.appTitle,
+    description: t.appSubtitle,
+    // Тему сайта вкладка браузера не знает, поэтому иконка выбирается по системной теме
+    icons: {
+      icon: [
+        { url: "/icon-light.png", type: "image/png", sizes: "192x192", media: "(prefers-color-scheme: light)" },
+        { url: "/icon-dark.png", type: "image/png", sizes: "192x192", media: "(prefers-color-scheme: dark)" },
+      ],
+    },
+  };
 }
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
@@ -60,7 +71,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
               title={t.appTitle}
               className="shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
-              <Image src={logo} alt="" width={40} height={40} loading="eager" />
+              {/* Версия под тему сайта (data-theme), а не системную — переключается вместе с ThemeToggle */}
+              <Image src={logoLight} alt="" width={40} height={40} loading="eager" className="dark:hidden" />
+              <Image src={logoDark} alt="" width={40} height={40} loading="eager" className="hidden dark:block" />
             </Link>
             <div className="flex items-center gap-3">
               <LanguageSwitcher />
