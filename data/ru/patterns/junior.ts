@@ -151,7 +151,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Итератор даёт единый способ последовательно обходить коллекцию, не раскрывая её устройства. Массивы, `Map`, `Set`, строки и генераторы реализуют протокол итерации, поэтому одинаково работают в `for...of` и spread.",
-    sources: ["rg-iterator", "ljr-iterable"],
+    sources: ["rg-iterator", "jsinfo-iterable"],
   },
   {
     question: "Что такое паттерн «Модуль» в JavaScript?",
@@ -163,7 +163,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Раньше модуль делали через IIFE и замыкания, сейчас — через ES-модули: всё, что не экспортировано, приватно. Это уменьшает связность и защищает от конфликтов имён в глобальной области.",
-    sources: ["pd-module", "ljr-modules"],
+    sources: ["pd-module", "jsinfo-modules"],
   },
   {
     question: "Когда полезен паттерн «Строитель» (Builder)?",
@@ -287,7 +287,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion. Принципы применимы и вне классов: к функциям, модулям, React-компонентам.",
-    sources: ["wiki-solid-ru", "wiki-solid"],
+    sources: ["wiki-solid-uk", "wiki-solid"],
   },
   {
     question: "Что требует принцип единственной ответственности (SRP)?",
@@ -299,7 +299,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Компонент, который и загружает данные, и форматирует их, и рисует таблицу, меняется по разным причинам. Разделение на хук загрузки, функции форматирования и презентационный компонент упрощает изменения и тесты. «Одна функция» — неверная трактовка.",
-    sources: ["wiki-solid-ru"],
+    sources: ["wiki-solid-uk"],
   },
   {
     question: "Что означает принцип открытости/закрытости (OCP)?",
@@ -311,7 +311,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Новое поведение добавляют, не переписывая проверенный код: новой стратегией, плагином, компонентом через props/`children`. Пример: `Button` с prop `icon` вместо правки кнопки под каждую новую иконку.",
-    sources: ["wiki-solid-ru"],
+    sources: ["wiki-solid-uk"],
   },
   {
     question: "Что требует принцип подстановки Лисков (LSP)?",
@@ -323,7 +323,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Классический пример нарушения: `Square extends Rectangle`, у которого `setWidth` меняет и высоту — код, рассчитывающий на прямоугольник, ломается. На фронтенде: компонент-обёртка над `<input>` должен поддерживать ожидаемые props вроде `onChange` и `disabled`.",
-    sources: ["wiki-solid-ru", "wiki-solid"],
+    sources: ["wiki-solid-uk", "wiki-solid"],
   },
   {
     question: "О чём принцип разделения интерфейсов (ISP)?",
@@ -335,7 +335,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Компонент `Avatar`, принимающий весь объект `user` с десятками полей, зависит от лишнего. Лучше передать `src` и `name`. Узкие интерфейсы упрощают переиспользование и тесты.",
-    sources: ["wiki-solid-ru"],
+    sources: ["wiki-solid-uk"],
   },
   {
     question: "Что означает принцип инверсии зависимостей (DIP)?",
@@ -467,7 +467,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Компонент на 2000 строк, сервис `utils` со всем подряд — их трудно понимать, тестировать и менять, а любое изменение рискованно. Лечится разделением по ответственностям (SRP).",
-    sources: ["rg-smells", "wiki-solid-ru"],
+    sources: ["rg-smells", "wiki-solid-uk"],
   },
   {
     question: "Чем плохи «магические числа» вроде `if (status === 3)`?",
@@ -491,7 +491,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Вложенные колбэки «пирамидой» трудно читать и обрабатывать ошибки. Промисы выравнивают цепочку, а `async/await` делает асинхронный код похожим на синхронный.",
-    sources: ["ljr-promise", "ljr-async-await"],
+    sources: ["jsinfo-promise", "jsinfo-async-await"],
   },
   {
     question: "Функция принимает 7 аргументов. Какой рефакторинг обычно уместен?",
@@ -527,7 +527,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Например, загрузка данных — в хуке или серверном компоненте, бизнес-правила — в чистых функциях, отображение — в компонентах. Изменение в одном аспекте не затрагивает другие.",
-    sources: ["mf-ui-archs", "wiki-solid-ru"],
+    sources: ["mf-ui-archs", "wiki-solid-uk"],
   },
   {
     question: "Что значит «высокая связность (cohesion) и слабая связанность (coupling)»?",

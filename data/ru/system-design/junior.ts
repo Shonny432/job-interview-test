@@ -199,7 +199,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Без debounce слово «кроссовки» даст 9 запросов. Задержка 200–300 мс снижает нагрузку на сервер. Дополнительно отменяют устаревшие запросы (`AbortController`), чтобы старый ответ не перезаписал новый, и кэшируют результаты.",
-    sources: ["ljr-settimeout", "mdn-abort-controller"],
+    sources: ["jsinfo-settimeout", "mdn-abort-controller"],
   },
   {
     question: "Какие состояния интерфейса нужно продумать для экрана со списком данных?",

@@ -17,7 +17,7 @@ console.log(greet());`,
     answer: 0,
     explanation:
       "`this` определяется способом вызова, а не местом объявления. `greet()` вызван без объекта перед точкой, поэтому `this` — `undefined` в строгом режиме (в нестрогом — глобальный объект). Исправить можно через `user.greet.bind(user)` или вызов `user.greet()`.",
-    sources: ["ljr-object-methods", "mdn-this", "doka-this"],
+    sources: ["jsinfo-object-methods", "mdn-this"],
   },
   {
     question: "Чем `call`, `apply` и `bind` отличаются друг от друга?",
@@ -29,7 +29,7 @@ console.log(greet());`,
     answer: 0,
     explanation:
       "`fn.call(ctx, a, b)`, `fn.apply(ctx, [a, b])` — немедленный вызов с заданным `this`. `fn.bind(ctx, a)` возвращает функцию с навсегда привязанным контекстом и частично применёнными аргументами. На стрелочные функции все три не влияют: у них нет своего `this`.",
-    sources: ["ljr-bind", "ljr-call-apply"],
+    sources: ["jsinfo-bind", "jsinfo-call-apply"],
   },
   {
     question: "Что выведет код?",
@@ -40,7 +40,7 @@ console.log(g());`,
     answer: 0,
     explanation:
       "Привязанная функция «запоминает» контекст навсегда; повторный `bind` не может его изменить (хотя может добавить аргументы). Только `new` способен переопределить `this` у связанной функции.",
-    sources: ["ljr-bind"],
+    sources: ["jsinfo-bind"],
   },
   {
     question: "Что выведет код через секунду?",
@@ -59,7 +59,7 @@ timer.start();`,
     answer: 0,
     explanation:
       "Колбэк вызывается таймером без контекста, поэтому `this` — не `timer`. Стрелочная функция `() => console.log(this.seconds)` взяла бы `this` из `start` и вывела 10. Это классический пример, где стрелки полезны.",
-    sources: ["ljr-arrow-functions", "mdn-this"],
+    sources: ["jsinfo-arrow-functions", "mdn-this"],
   },
   {
     question: "Что выведет код?",
@@ -76,7 +76,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "Объектный литерал не создаёт свою область для `this`. Стрелка возьмёт `this` модуля или глобальной области. Поэтому методы объектов объявляют обычным синтаксисом `hi() {}`.",
-    sources: ["ljr-arrow-functions", "mdn-this"],
+    sources: ["jsinfo-arrow-functions", "mdn-this"],
   },
   {
     question: "Как движок ищет свойство, которого нет у самого объекта?",
@@ -88,7 +88,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "У каждого объекта есть скрытая ссылка `[[Prototype]]` (`Object.getPrototypeOf`). Так массивы получают `map` из `Array.prototype`, а все объекты — `toString` из `Object.prototype`. Поиск по областям видимости касается переменных, а не свойств.",
-    sources: ["ljr-prototype", "mdn-prototype-chain"],
+    sources: ["jsinfo-prototype", "mdn-prototype-chain"],
   },
   {
     question: "Что делает `Object.create(proto)`?",
@@ -100,7 +100,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "Свойства `proto` не копируются — они доступны через цепочку прототипов. `Object.create(null)` создаёт объект вообще без прототипа: удобный «чистый» словарь без унаследованных ключей вроде `toString`.",
-    sources: ["ljr-prototype", "mdn-prototype-chain"],
+    sources: ["jsinfo-prototype", "mdn-prototype-chain"],
   },
   {
     question: "Что на самом деле представляют классы в JavaScript?",
@@ -112,7 +112,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "Методы класса попадают в `Class.prototype`, `extends` выстраивает цепочку прототипов. Но есть отличия от функций-конструкторов: класс нельзя вызвать без `new`, тело выполняется в строгом режиме, методы неперечисляемые, есть приватные поля `#x` и `static`.",
-    sources: ["ljr-class", "mdn-classes"],
+    sources: ["jsinfo-class", "mdn-classes"],
   },
   {
     question: "Почему в конструкторе наследника нужно вызвать `super()` до обращения к `this`?",
@@ -124,7 +124,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "В производном классе экземпляр создаётся родительским конструктором, поэтому обращение к `this` до `super()` бросает `ReferenceError`. Методы родителя не копируются — они доступны через прототип.",
-    sources: ["ljr-class", "mdn-classes"],
+    sources: ["jsinfo-class", "mdn-classes"],
   },
   {
     question: "Чем `#count` отличается от `_count` в классе?",
@@ -136,7 +136,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "Подчёркивание — договорённость, свойство по-прежнему доступно. Приватные поля с `#` проверяются движком: обращение `obj.#count` снаружи — синтаксическая ошибка. Проверить наличие можно через `#count in obj`.",
-    sources: ["mdn-private-fields", "ljr-private"],
+    sources: ["mdn-private-fields", "jsinfo-private"],
   },
   {
     question: "Как работает `obj instanceof Class`?",
@@ -148,7 +148,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "Поэтому `instanceof` может давать неожиданные результаты при подмене прототипов или для объектов из другого iframe (у них другой `Array.prototype`). Для массивов надёжнее `Array.isArray`.",
-    sources: ["ljr-prototype", "mdn-prototype-chain"],
+    sources: ["jsinfo-prototype", "mdn-prototype-chain"],
   },
   {
     question: "Что выведет код?",
@@ -159,7 +159,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "`var` создаёт одну переменную на всю функцию, и к моменту срабатывания таймеров цикл уже закончился с `i = 3`. С `let` на каждой итерации создаётся новая привязка, и вывод будет `0 1 2`.",
-    sources: ["ljr-closure", "ljr-var"],
+    sources: ["jsinfo-closure", "jsinfo-var"],
   },
   {
     question: "Для чего раньше использовали IIFE `(function () { ... })()`?",
@@ -171,7 +171,7 @@ console.log(obj.hi());`,
     answer: 0,
     explanation:
       "До `let`/`const` и модулей единственным способом скрыть переменные была функция. IIFE создавала приватную область (паттерн «модуль»). Сегодня ту же задачу решают ES-модули и блоки, а IIFE иногда используют для async-кода на верхнем уровне.",
-    sources: ["ljr-closure", "mdn-modules"],
+    sources: ["jsinfo-closure", "mdn-modules"],
   },
   {
     question: "Что такое каррирование?",
@@ -185,7 +185,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "Каррирование основано на замыканиях: каждая функция запоминает переданный аргумент. Позволяет создавать специализированные функции (`const add10 = add(10)`). Частичное применение (`bind` с аргументами) — близкая, но не идентичная идея.",
-    sources: ["ljr-currying", "ljr-closure"],
+    sources: ["jsinfo-currying", "jsinfo-closure"],
   },
   {
     question: "Чем debounce отличается от throttle?",
@@ -197,7 +197,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "Debounce подходит для поиска по мере ввода: запрос уйдёт, когда пользователь перестанет печатать. Throttle — для `scroll` и `resize`: обработчик выполняется регулярно, но ограниченно. Оба реализуются через замыкание с таймером.",
-    sources: ["ljr-call-apply", "ljr-settimeout"],
+    sources: ["jsinfo-call-apply", "jsinfo-settimeout"],
   },
   {
     question: "Что такое мемоизация?",
@@ -209,7 +209,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "Мемоизированная функция хранит в замыкании `Map` «аргументы → результат». Работает для чистых функций. Минусы — рост памяти и сложность с ключами для объектов (часто используют `WeakMap`).",
-    sources: ["ljr-call-apply", "ljr-map-set"],
+    sources: ["jsinfo-call-apply", "jsinfo-map-set"],
   },
   {
     question: "Как поведёт себя `Promise.all`, если один из промисов отклонится?",
@@ -221,7 +221,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "`Promise.all` — «всё или ничего». Остальные операции не отменяются, просто их результаты больше не нужны. Если важны все исходы — `Promise.allSettled`, первый успешный — `Promise.any`, первый завершившийся — `Promise.race`.",
-    sources: ["ljr-promise-api", "mdn-promise-all"],
+    sources: ["jsinfo-promise-api", "mdn-promise-all"],
   },
   {
     question: "Что вернёт `Promise.allSettled`?",
@@ -233,7 +233,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "`allSettled` никогда не отклоняется: он ждёт все промисы и описывает исход каждого (`'fulfilled'` или `'rejected'`). Удобно, когда нужно выполнить независимые запросы и показать частичный результат.",
-    sources: ["mdn-promise-allsettled", "ljr-promise-api"],
+    sources: ["mdn-promise-allsettled", "jsinfo-promise-api"],
   },
   {
     question: "Чем `Promise.any` отличается от `Promise.race`?",
@@ -260,7 +260,7 @@ add(2)(3); // 5`,
     answer: 0,
     explanation:
       "Каждый `await` ждёт завершения перед следующей итерацией. Если запросы независимы, их запускают параллельно: `await Promise.all(ids.map(fetchUser))` — около 1 секунды. Последовательность нужна, когда следующий шаг зависит от предыдущего.",
-    sources: ["ljr-async-await", "mdn-promise-all"],
+    sources: ["jsinfo-async-await", "mdn-promise-all"],
   },
   {
     question: "Почему `forEach` не дожидается асинхронных колбэков?",
@@ -274,7 +274,7 @@ console.log("готово");`,
     answer: 0,
     explanation:
       "Колбэк возвращает промис, но `forEach` его не использует. Нужен `for...of` с `await` (последовательно) или `await Promise.all(items.map(save))` (параллельно).",
-    sources: ["ljr-async-await", "ljr-array-methods"],
+    sources: ["jsinfo-async-await", "jsinfo-array-methods"],
   },
   {
     question: "Что выведет цепочка?",
@@ -287,7 +287,7 @@ console.log("готово");`,
     answer: 0,
     explanation:
       "Значение, возвращённое из `then`, передаётся дальше. Ошибка пропускает `then` до ближайшего `catch`, а `catch` возвращает обычное значение (`'2'`), после чего цепочка продолжается как успешная.",
-    sources: ["ljr-promise-chaining"],
+    sources: ["jsinfo-promise-chaining"],
   },
   {
     question: "Что делает `.finally()` у промиса?",
@@ -299,7 +299,7 @@ console.log("готово");`,
     answer: 0,
     explanation:
       "`finally` не получает аргументов и пропускает значение или ошибку дальше без изменений — удобно, чтобы скрыть индикатор загрузки. Исключение: если колбэк сам бросит ошибку или вернёт отклонённый промис, цепочка отклонится.",
-    sources: ["ljr-promise-chaining", "mdn-promise"],
+    sources: ["jsinfo-promise-chaining", "mdn-promise"],
   },
   {
     question: "В каком порядке выведутся строки?",
@@ -314,7 +314,7 @@ console.log("C");`,
     answer: 0,
     explanation:
       "Тело async-функции выполняется синхронно до первого `await`. Оставшаяся часть продолжится как микрозадача после того, как завершится текущий синхронный код. Поэтому сначала `A`, затем `C`, затем `B`.",
-    sources: ["ljr-async-await", "ljr-microtask"],
+    sources: ["jsinfo-async-await", "jsinfo-microtask"],
   },
   {
     question: "Почему рекурсивный `setTimeout` иногда предпочтительнее `setInterval`?",
@@ -326,7 +326,7 @@ console.log("C");`,
     answer: 0,
     explanation:
       "`setInterval` ставит запуски по расписанию: если задача (например, запрос) длится дольше интервала, вызовы накладываются. Рекурсивный `setTimeout` планирует следующий запуск после завершения текущего и позволяет менять задержку. Оба таймера неточны и зависят от загрузки потока.",
-    sources: ["ljr-settimeout"],
+    sources: ["jsinfo-settimeout"],
   },
   {
     question: "Для чего `requestAnimationFrame`?",
@@ -356,7 +356,7 @@ gen.next().value; // 1`,
     answer: 0,
     explanation:
       "Вызов генератора не выполняет тело, а возвращает объект с методом `next()`. Каждый `next()` продолжает работу до следующего `yield`. Генераторы удобны для ленивых и бесконечных последовательностей и реализации итераторов.",
-    sources: ["ljr-generators", "mdn-generator"],
+    sources: ["jsinfo-generators", "mdn-generator"],
   },
   {
     question: "Что нужно, чтобы свой объект работал с `for...of` и spread?",
@@ -368,7 +368,7 @@ gen.next().value; // 1`,
     answer: 0,
     explanation:
       "Протокол итерации: `[Symbol.iterator]` возвращает объект с `next()`, который отдаёт `{ value, done }`. Проще всего реализовать его генератором. Объекты с `length` — псевдомассивы: с `for...of` они не работают, их превращают через `Array.from`.",
-    sources: ["ljr-iterable", "mdn-iteration-protocols"],
+    sources: ["jsinfo-iterable", "mdn-iteration-protocols"],
   },
   {
     question: "Для чего используют `Symbol`?",
@@ -380,7 +380,7 @@ gen.next().value; // 1`,
     answer: 0,
     explanation:
       "`Symbol('id')` всегда уникален, а символьные ключи не видны в `for...in` и `Object.keys`. Встроенные «well-known» символы настраивают поведение объектов: `Symbol.iterator`, `Symbol.toPrimitive`, `Symbol.asyncIterator`.",
-    sources: ["ljr-symbol", "mdn-symbol"],
+    sources: ["jsinfo-symbol", "mdn-symbol"],
   },
   {
     question: "Чем `WeakMap` отличается от `Map`?",
@@ -392,7 +392,7 @@ gen.next().value; // 1`,
     answer: 0,
     explanation:
       "Если на объект-ключ нигде больше нет ссылок, запись исчезнет вместе с ним. Поэтому у `WeakMap` нет `size` и перебора. Применение: приватные данные для объектов, кэш метаданных для DOM-узлов без утечек памяти.",
-    sources: ["ljr-weakmap", "mdn-weakmap"],
+    sources: ["jsinfo-weakmap", "mdn-weakmap"],
   },
   {
     question: "Чем `structuredClone(obj)` лучше `JSON.parse(JSON.stringify(obj))`?",
@@ -404,7 +404,7 @@ gen.next().value; // 1`,
     answer: 0,
     explanation:
       "JSON-трюк превращает `Date` в строку, теряет `undefined`, `Map`, `Set`, `Infinity` и падает на циклах. `structuredClone` поддерживает больше типов, но функции, DOM-узлы и прототипы классов не копирует — такие объекты выбросят ошибку или потеряют методы.",
-    sources: ["mdn-structured-clone", "ljr-json"],
+    sources: ["mdn-structured-clone", "jsinfo-json"],
   },
   {
     question: "Что выведет код?",
@@ -419,7 +419,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`Object.freeze` запрещает добавлять, удалять и менять свойства только самого объекта. Вложенные объекты остаются изменяемыми. Глубокую заморозку делают рекурсивной функцией.",
-    sources: ["mdn-object-freeze", "ljr-property-descriptors"],
+    sources: ["mdn-object-freeze", "jsinfo-property-descriptors"],
   },
   {
     question: "Что даёт `Object.defineProperty(obj, 'id', { value: 1, writable: false })`?",
@@ -431,7 +431,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "У каждого свойства есть флаги `writable`, `enumerable`, `configurable`. При `defineProperty` не указанные флаги по умолчанию `false`, поэтому свойство не появится в `Object.keys` и его нельзя будет удалить. Также так задают геттеры и сеттеры.",
-    sources: ["ljr-property-descriptors"],
+    sources: ["jsinfo-property-descriptors"],
   },
   {
     question: "Что выведет `[10, 1, 2].sort()`?",
@@ -447,7 +447,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`parseInt` читает число с начала строки, пока встречает цифры, а `Number` требует, чтобы вся строка была числом. Указывайте основание: `parseInt(str, 10)`. Для дробных — `parseFloat`.",
-    sources: ["ljr-number", "ljr-type-conversions"],
+    sources: ["jsinfo-number", "jsinfo-type-conversions"],
   },
   {
     question: "Чем ES-модули отличаются от CommonJS?",
@@ -459,7 +459,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`import`/`export` известны до выполнения, что позволяет сборщикам удалять неиспользуемый код (tree-shaking). Импортированное значение отражает текущее значение экспорта. `require` выполняется в рантайме и копирует `module.exports`. ESM всегда в строгом режиме и поддерживает top-level `await`.",
-    sources: ["ljr-modules", "mdn-modules"],
+    sources: ["jsinfo-modules", "mdn-modules"],
   },
   {
     question: "Зачем нужен динамический `import()`?",
@@ -471,7 +471,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`const { Chart } = await import('./chart.js')` возвращает промис модуля. Сборщики создают отдельный файл, который загружается только когда нужен — основа code splitting и `React.lazy`. Модуль кэшируется и выполняется один раз.",
-    sources: ["mdn-dynamic-import", "ljr-modules"],
+    sources: ["mdn-dynamic-import", "jsinfo-modules"],
   },
   {
     question: "Отклонит ли `fetch` промис при ответе 404?",
@@ -483,7 +483,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "HTTP-ответ с ошибкой — всё равно ответ. Нужна явная проверка: `if (!res.ok) throw new Error(res.status)`. Промис отклонится при обрыве сети, CORS-блокировке или отмене через `AbortController`.",
-    sources: ["mdn-fetch", "ljr-fetch"],
+    sources: ["mdn-fetch", "jsinfo-fetch"],
   },
   {
     question: "Как отменить запрос `fetch`?",
@@ -495,7 +495,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "После `abort()` промис отклонится с `AbortError`. Тот же сигнал можно передать в несколько запросов и в `addEventListener`. Для таймаута есть `AbortSignal.timeout(5000)`. У промисов метода `cancel` нет.",
-    sources: ["mdn-abort-controller", "ljr-fetch"],
+    sources: ["mdn-abort-controller", "jsinfo-fetch"],
   },
   {
     question: "Что такое CORS?",
@@ -519,7 +519,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`HttpOnly` закрывает доступ через `document.cookie`. Для сессионных cookie ещё ставят `Secure` (только HTTPS) и `SameSite` (защита от CSRF). Поэтому токены сессии надёжнее хранить в таких cookie, чем в `localStorage`.",
-    sources: ["mdn-cookies", "ljr-cookie"],
+    sources: ["mdn-cookies", "jsinfo-cookie"],
   },
   {
     question: "Чем `stopPropagation` отличается от `stopImmediatePropagation`?",
@@ -531,7 +531,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`stopPropagation` прекращает распространение к другим элементам, но остальные обработчики текущего элемента выполнятся. `stopImmediatePropagation` останавливает и их. Действие по умолчанию отменяет только `preventDefault`. Злоупотреблять остановкой всплытия не стоит — это ломает делегирование.",
-    sources: ["ljr-bubbling", "mdn-add-event-listener"],
+    sources: ["jsinfo-bubbling", "mdn-add-event-listener"],
   },
   {
     question: "Что даёт опция `{ passive: true }` в `addEventListener('touchmove', ...)`?",
@@ -555,7 +555,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "Каждая вставка в живой DOM может вызвать пересчёт стилей и раскладки. Фрагмент собирается вне документа и вставляется разом; так же работает `el.append(...nodes)`. `innerHTML +=` в цикле каждый раз заново разбирает всю разметку и теряет обработчики.",
-    sources: ["mdn-document-fragment", "ljr-modifying-document"],
+    sources: ["mdn-document-fragment", "jsinfo-modifying-document"],
   },
   {
     question: "Как удобнее всего определить, что элемент появился в viewport?",
@@ -586,7 +586,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "Наследование от `Error` даёт стек вызовов, корректную работу `instanceof` и вывод в консоли. Бросить можно что угодно, но обычный объект не имеет стека. Для цепочки причин есть `new Error('msg', { cause: err })`.",
-    sources: ["ljr-try-catch", "mdn-error-cause"],
+    sources: ["jsinfo-try-catch", "mdn-error-cause"],
   },
   {
     question: "Что вернёт `Object.fromEntries(Object.entries({ a: 1, b: 2 }).map(([k, v]) => [k, v * 10]))`?",
@@ -594,7 +594,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`Object.entries` превращает объект в массив пар, с которым работают методы массивов, а `Object.fromEntries` собирает пары обратно в объект. Это стандартный способ «map по объекту». Для группировки есть `Object.groupBy`.",
-    sources: ["ljr-object", "mdn-object-groupby"],
+    sources: ["jsinfo-object", "mdn-object-groupby"],
   },
   {
     question: "Чем `getter` отличается от обычного свойства?",
@@ -610,7 +610,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "Геттер выглядит как свойство, но выполняет функцию. Без сеттера присваивание `user.full = ...` игнорируется (в строгом режиме — ошибка). Геттеры используют для вычисляемых полей и валидации через пару getter/setter.",
-    sources: ["ljr-property-descriptors", "ljr-class"],
+    sources: ["jsinfo-property-descriptors", "jsinfo-class"],
   },
   {
     question: "Что вернёт `Array.from({ length: 3 }, (_, i) => i * 2)`?",
@@ -618,7 +618,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "`Array.from` создаёт массив из итерируемого или массивоподобного объекта (`{ length: 3 }`), а второй аргумент — функция преобразования. Так удобно генерировать диапазоны. `new Array(3)` создаёт массив с «дырами», по которым `map` не проходит.",
-    sources: ["ljr-array-methods", "ljr-iterable"],
+    sources: ["jsinfo-array-methods", "jsinfo-iterable"],
   },
   {
     question: "Что вернёт `{} === {}`?",
@@ -626,7 +626,7 @@ console.log(cfg.db.host);`,
     answer: 0,
     explanation:
       "Объекты сравниваются по ссылке: два литерала — два разных объекта. Для сравнения содержимого нужна своя функция глубокого сравнения или библиотека. Эта особенность важна для зависимостей `useEffect` и мемоизации в React.",
-    sources: ["mdn-equality", "ljr-object-copy"],
+    sources: ["mdn-equality", "jsinfo-object-copy"],
   },
 ];
 

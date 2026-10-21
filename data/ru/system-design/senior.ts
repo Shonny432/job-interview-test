@@ -11,7 +11,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Consistency, Availability, Partition tolerance: разделение сети в распределённой системе неизбежно, и в этот момент система либо отказывает части запросов (CP), либо отвечает возможно устаревшими данными (AP). В обычной работе компромисс — между согласованностью и задержкой (PACELC).",
-    sources: ["wiki-cap-ru", "sd-primer"],
+    sources: ["wiki-cap-uk", "sd-primer"],
   },
   {
     question: "Пользователь обновил профиль, обновил страницу и увидел старые данные. Какая гарантия нарушена?",
@@ -239,7 +239,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Запись в двух регионах одновременно требует стратегии разрешения конфликтов (last-write-wins, CRDT, «домашний регион» пользователя). Кроме того, законы о локализации данных (например, GDPR) ограничивают, где хранить персональные данные.",
-    sources: ["wiki-replication", "wiki-cap-ru"],
+    sources: ["wiki-replication", "wiki-cap-uk"],
   },
   {
     question: "Чем опасен заголовок `Vary: User-Agent` или `Vary: Cookie` для CDN?",
@@ -535,7 +535,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Требования к согласованности определяются доменом: деньгам нужны ACID-транзакции и идемпотентность, а лайки можно копить, агрегировать асинхронно и показывать с задержкой («1,2 тыс.»). Выбор влияет на стоимость и масштабируемость.",
-    sources: ["wiki-cap-ru", "sd-primer"],
+    sources: ["wiki-cap-uk", "sd-primer"],
   },
   {
     question: "Что такое hedged requests и когда они полезны?",

@@ -431,7 +431,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Генераторы с эффектами `take`, `race`, `cancel` позволяют декларативно описывать долгоживущие процессы и тестировать их пошагово. Цена — сложность и порог входа. RTK рекомендует thunks и listener middleware для большинства задач.",
-    sources: ["rtk-listener", "ljr-generators"],
+    sources: ["rtk-listener", "jsinfo-generators"],
   },
   {
     question: "Почему нормализация данных во фронтенд-store — архитектурный паттерн, а не микрооптимизация?",

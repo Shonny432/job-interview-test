@@ -11,7 +11,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "Считаем по разрядам: ID — `#main` (1); классы, атрибуты и псевдоклассы — `.item` и `:hover` (2); теги и псевдоэлементы — `nav`, `a`, `::before` (3). Комбинаторы (`>`, пробел) специфичность не добавляют. Псевдокласс весит как класс, а псевдоэлемент — как тег.",
-    sources: ["mdn-specificity", "doka-specificity"],
+    sources: ["mdn-specificity", "wd-css-specificity"],
   },
   {
     question: "Как перебить правило с `!important` из сторонней библиотеки, не трогая её код?",
@@ -83,7 +83,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "`grid-template-areas` описывает раскладку строками-«картинками»: `\"header header\" \"sidebar main\" \"footer footer\"`, а элементы привязываются через `grid-area: header`. Точка `.` обозначает пустую ячейку. Это удобно для адаптивности: в медиазапросе меняется только шаблон. Свойства `grid-area-names` не существует.",
-    sources: ["mdn-grid-template-areas", "css-tricks-grid", "doka-grid"],
+    sources: ["mdn-grid-template-areas", "css-tricks-grid", "wd-css-grid"],
   },
   {
     question: "Что такое неявная сетка (implicit grid)?",
@@ -367,7 +367,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Range syntax позволяет писать сравнения: `(width >= 768px)`, `(400px <= width < 1000px)`. Он короче и избавляет от путаницы `min/max` на границах. Поддерживается всеми современными браузерами, и Tailwind v4 генерирует брейкпоинты именно в таком виде. Контейнерный запрос пишется через `@container`.",
-    sources: ["mdn-media-queries", "doka-media"],
+    sources: ["mdn-media-queries", "wd-media-queries"],
   },
   {
     question: "Для чего контейнерные запросы `@container`?",
@@ -423,7 +423,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "БЭМ: блок (`card`), элемент через два подчёркивания (`card__title`), модификатор через два дефиса (`card__title--accent`). Модификатор пишут вместе с базовым классом, чтобы не дублировать базовые стили. Плоская структура классов даёт низкую одинаковую специфичность и предсказуемый каскад.",
-    sources: ["css-tricks-bem", "bem-methodology"],
+    sources: ["css-tricks-bem", "smashing-bem"],
   },
   {
     question: "Как CSS Modules решают проблему конфликтов имён классов?",

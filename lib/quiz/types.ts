@@ -1,4 +1,4 @@
-import type { Source, SourceKey } from "./sources";
+import type { ResolvedSource, SourceKey } from "./sources";
 
 export type TopicId =
   | "layout"
@@ -28,4 +28,4 @@ export type Question = {
 };
 
 /** Вопрос, готовый к передаче в клиентский компонент: ссылки уже развёрнуты из реестра. */
-export type ResolvedQuestion = Omit<Question, "sources"> & { sources: Source[] };
+export type ResolvedQuestion = Omit<Question, "sources"> & { sources: ResolvedSource[] };

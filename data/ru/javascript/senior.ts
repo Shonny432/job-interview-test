@@ -11,7 +11,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "После каждой макрозадачи (скрипт, событие, таймер) очередь микрозадач опустошается полностью, включая добавленные по ходу. Затем браузер может обновить отрисовку (с вызовом `requestAnimationFrame`), если пришло время кадра. Поэтому долгая цепочка микрозадач тоже блокирует рендер.",
-    sources: ["ljr-event-loop", "mdn-event-loop", "doka-async"],
+    sources: ["jsinfo-event-loop", "mdn-event-loop", "mdn-async-intro"],
   },
   {
     question: "Что произойдёт со страницей?",
@@ -27,7 +27,7 @@ loop();`,
     answer: 0,
     explanation:
       "Стек не растёт (каждый вызов — отдельная микрозадача), поэтому переполнения нет. Но очередь микрозадач никогда не опустеет, и event loop не перейдёт ни к рендеру, ни к событиям. С `setTimeout(loop)` страница осталась бы отзывчивой.",
-    sources: ["ljr-microtask", "mdn-microtasks"],
+    sources: ["jsinfo-microtask", "mdn-microtasks"],
   },
   {
     question: "Выполняется ли функция-исполнитель `new Promise(executor)` синхронно?",
@@ -41,7 +41,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Исполнитель вызывается сразу в конструкторе. Асинхронны только колбэки `then/catch/finally` — они всегда выполняются микрозадачей, даже если промис уже выполнен. Это гарантирует предсказуемый порядок кода.",
-    sources: ["ljr-promise", "mdn-promise"],
+    sources: ["jsinfo-promise", "mdn-promise"],
   },
   {
     question: "Почему промис ниже никогда не отклонится?",
@@ -56,7 +56,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Автоматически в отклонение превращаются только синхронные исключения исполнителя. Ошибка в колбэке таймера возникает позже, в отдельной задаче: она станет глобальной необработанной ошибкой, а промис навсегда останется `pending`. Нужно вызывать `reject` явно.",
-    sources: ["ljr-promise", "ljr-try-catch"],
+    sources: ["jsinfo-promise", "jsinfo-try-catch"],
   },
   {
     question: "Как глобально отследить необработанные отклонения промисов в браузере?",
@@ -68,7 +68,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "`window.addEventListener('unhandledrejection', e => report(e.reason))` — стандартный способ отправлять такие ошибки в мониторинг. Синхронные необработанные ошибки ловит событие `error` на `window`. Метода `Promise.onError` нет.",
-    sources: ["ljr-try-catch", "mdn-promise"],
+    sources: ["jsinfo-try-catch", "mdn-promise"],
   },
   {
     question: "Что делает `for await...of`?",
@@ -80,7 +80,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Работает с объектами, у которых есть `Symbol.asyncIterator`: async-генераторами, потоками (`ReadableStream`), пагинацией API. Итерации идут последовательно. Для параллельной обработки массива промисов используют `Promise.all`.",
-    sources: ["mdn-for-await", "ljr-generators"],
+    sources: ["mdn-for-await", "jsinfo-generators"],
   },
   {
     question: "Для чего удобен async-генератор?",
@@ -99,7 +99,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Потребитель пишет `for await (const items of pages(url))` и сам решает, когда остановиться — следующая страница не запрашивается, пока не нужна. Выход из цикла через `break` вызывает `return()` генератора и завершает его.",
-    sources: ["ljr-generators", "mdn-for-await"],
+    sources: ["jsinfo-generators", "mdn-for-await"],
   },
   {
     question: "Для чего используют `Proxy`?",
@@ -111,7 +111,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Ловушки `get`, `set`, `has`, `deleteProperty` и др. позволяют реализовать реактивность (так работает Vue 3), валидацию, логирование, значения по умолчанию. `Reflect` предоставляет стандартное поведение операций для использования внутри ловушек.",
-    sources: ["ljr-proxy", "mdn-proxy"],
+    sources: ["jsinfo-proxy", "mdn-proxy"],
   },
   {
     question: "Какие условия гарантируют, что объект будет удалён сборщиком мусора?",
@@ -123,7 +123,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Современные движки используют алгоритм пометок (mark-and-sweep): всё, до чего можно дойти от корней, живо. Циклические ссылки между недостижимыми объектами не мешают их удалению — в отличие от подсчёта ссылок. Момент сборки не определён.",
-    sources: ["ljr-garbage-collection", "mdn-memory"],
+    sources: ["jsinfo-garbage-collection", "mdn-memory"],
   },
   {
     question: "Какой сценарий типично приводит к утечке памяти в SPA?",
@@ -135,7 +135,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Подписка держит замыкание, а через него — данные и DOM-узлы компонента. Ещё источники: отсоединённые DOM-узлы, на которые ссылается JS, растущие глобальные кэши, забытые `setInterval`. Короткоживущие объекты эффективно собирает молодое поколение GC. Ищут через снимки Memory в DevTools.",
-    sources: ["mdn-memory", "ljr-garbage-collection"],
+    sources: ["mdn-memory", "jsinfo-garbage-collection"],
   },
   {
     question: "Почему с `WeakRef` и `FinalizationRegistry` советуют быть осторожными?",
@@ -252,7 +252,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Сначала целочисленные ключи по возрастанию, затем строковые в порядке добавления, затем символы (их `Object.keys` не возвращает). Если порядок важен для числовых ключей, используйте `Map`.",
-    sources: ["ljr-object", "ljr-map-set"],
+    sources: ["jsinfo-object", "jsinfo-map-set"],
   },
   {
     question: "Как глубоко заморозить объект?",
@@ -270,7 +270,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "`Object.freeze` неглубокий, а `Object.seal` только запрещает добавлять и удалять свойства. Рекурсия обходит дерево; для циклических ссылок стоит хранить посещённые объекты в `WeakSet`. Опции `deep` у `freeze` нет.",
-    sources: ["mdn-object-freeze", "ljr-property-descriptors"],
+    sources: ["mdn-object-freeze", "jsinfo-property-descriptors"],
   },
   {
     question: "Как сериализовать объект с циклическими ссылками в JSON?",
@@ -282,7 +282,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "`JSON.stringify` бросает `TypeError: Converting circular structure to JSON`. В `replacer` можно пропускать повторно встреченные объекты или заменять их на ссылку-маркер (как делают библиотеки вроде flatted). Для копирования внутри JS подойдёт `structuredClone` — он поддерживает циклы.",
-    sources: ["ljr-json", "ljr-weakmap"],
+    sources: ["jsinfo-json", "jsinfo-weakmap"],
   },
   {
     question: "Как ограничить число одновременных запросов, если нужно загрузить 100 URL?",
@@ -294,7 +294,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "`Promise.all` запускает всё сразу, ограничения у него нет (лимит соединений браузера касается сети, а не памяти и сервера). Пул из N async-функций, вытягивающих задачи из очереди, держит ровно N запросов в полёте. Готовые реализации — `p-limit` и подобные.",
-    sources: ["mdn-promise-all", "ljr-async-await"],
+    sources: ["mdn-promise-all", "jsinfo-async-await"],
   },
   {
     question: "Что такое экспоненциальный backoff при повторе запросов?",
@@ -306,7 +306,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Нарастающая задержка снижает нагрузку на перегруженный сервер, а jitter (случайная добавка) не даёт всем клиентам повторять запросы синхронно. Повторять стоит только идемпотентные операции и временные ошибки (5xx, сеть), не 4xx.",
-    sources: ["ljr-async-await", "ljr-settimeout"],
+    sources: ["jsinfo-async-await", "jsinfo-settimeout"],
   },
   {
     question: "Почему в реализации debounce важно сохранять `this` и аргументы?",
@@ -325,7 +325,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Обёртка должна быть прозрачной: вызов `obj.save(data)` через debounce обязан дойти до `fn` с тем же `this` и аргументами. Поэтому возвращают обычную функцию (у неё свой `this`), а внутри таймера — стрелку, которая его сохраняет.",
-    sources: ["ljr-call-apply", "ljr-closure"],
+    sources: ["jsinfo-call-apply", "jsinfo-closure"],
   },
   {
     question: "Почему добавление свойств объектам в разном порядке может замедлить код в V8?",
@@ -381,7 +381,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Неявное смешивание запрещено, чтобы не терять точность. Нужно явно: `10n + BigInt(1)` или `Number(10n) + 1`. `BigInt` нужен для целых больше `Number.MAX_SAFE_INTEGER` (2^53 − 1): идентификаторов, криптографии. `JSON.stringify` его не поддерживает.",
-    sources: ["mdn-bigint", "ljr-number"],
+    sources: ["mdn-bigint", "jsinfo-number"],
   },
   {
     question: "Почему `9007199254740993 === 9007199254740992` возвращает `true`?",
@@ -393,7 +393,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "У double 53 бита мантиссы, поэтому после 2^53 представимы не все целые. Большие ID из API (например, 64-битные) приходят в JSON как строки или обрабатываются через `BigInt`, иначе молча искажаются. Проверка — `Number.isSafeInteger`.",
-    sources: ["ljr-number", "mdn-bigint"],
+    sources: ["jsinfo-number", "mdn-bigint"],
   },
   {
     question: "Что такое ReDoS?",
@@ -418,7 +418,7 @@ console.log("B");`,
     answer: 0,
     explanation:
       "Наивное слияние присвоит `target.__proto__.isAdmin = true`, и `({}).isAdmin` станет `true` во всём приложении. Защита: пропускать `__proto__`, `constructor`, `prototype`, использовать `Object.create(null)` или `Map` для словарей, валидировать вход схемой.",
-    sources: ["ljr-prototype", "mdn-prototype-chain"],
+    sources: ["jsinfo-prototype", "mdn-prototype-chain"],
   },
   {
     question: "Почему `eval` и `new Function` обычно запрещают политикой безопасности?",
@@ -460,7 +460,7 @@ export const b = "B" + a;`,
     answer: 0,
     explanation:
       "Модуль с `await` на верхнем уровне становится асинхронным узлом графа, и зависимые модули выполняются после него. Удобно для загрузки конфигурации, но медленный `await` задерживает всю ветку приложения.",
-    sources: ["mdn-modules", "ljr-async-await"],
+    sources: ["mdn-modules", "jsinfo-async-await"],
   },
   {
     question: "Что даёт `Promise.withResolvers()` (ES2024)?",
@@ -480,7 +480,7 @@ export const b = "B" + a;`,
     answer: 0,
     explanation:
       "С 2024 года у `Set` есть методы теории множеств: `union`, `intersection`, `difference`, `symmetricDifference`, `isSubsetOf` и др. Раньше это писали вручную через `filter`. Перед использованием в продакшене проверяйте поддержку целевых браузеров.",
-    sources: ["ljr-map-set"],
+    sources: ["jsinfo-map-set"],
   },
   {
     question: "Что делает `Object.groupBy(users, u => u.role)`?",
@@ -566,7 +566,7 @@ console.log(+obj, \`\${obj}\`);`,
     answer: 0,
     explanation:
       "При преобразовании к примитиву движок вызывает `Symbol.toPrimitive` с подсказкой `'number'`, `'string'` или `'default'`. Без него используются `valueOf` и `toString`. Так работает, например, вычитание дат: `date2 - date1`.",
-    sources: ["ljr-symbol", "ljr-type-conversions"],
+    sources: ["jsinfo-symbol", "jsinfo-type-conversions"],
   },
   {
     question: "Что вернёт `[1, 2, 3, 4].findLast(n => n % 2 === 1)`?",
@@ -574,7 +574,7 @@ console.log(+obj, \`\${obj}\`);`,
     answer: 0,
     explanation:
       "`findLast` и `findLastIndex` (ES2023) ищут с конца массива — без `reverse`, который мутирует массив. Для множества совпадений используют `filter`.",
-    sources: ["ljr-array-methods"],
+    sources: ["jsinfo-array-methods"],
   },
   {
     question: "Зачем `Error` передают опцию `cause`?",
@@ -588,7 +588,7 @@ catch (err) { throw new Error("Не удалось сохранить заказ
     answer: 0,
     explanation:
       "Обёртывание ошибок добавляет контекст уровня приложения, а `cause` сохраняет низкоуровневую ошибку со стеком. DevTools и многие системы мониторинга показывают всю цепочку причин.",
-    sources: ["mdn-error-cause", "ljr-try-catch"],
+    sources: ["mdn-error-cause", "jsinfo-try-catch"],
   },
   {
     question: "Что такое Temporal Dead Zone для параметров по умолчанию?",
@@ -602,7 +602,7 @@ f();`,
     answer: 0,
     explanation:
       "Параметры инициализируются слева направо и ведут себя как `let`: обращение к ещё не инициализированному параметру — ошибка TDZ. В обратном порядке (`a = 1, b = a`) всё работает. Значения по умолчанию вычисляются при каждом вызове, а не один раз.",
-    sources: ["mdn-let", "ljr-function-expressions"],
+    sources: ["mdn-let", "jsinfo-function-expressions"],
   },
   {
     question: "Чем `globalThis` полезен?",
@@ -626,7 +626,7 @@ f();`,
     answer: 0,
     explanation:
       "Конструктор игнорирует промис, возвращённый async-исполнителем, поэтому исключение после `await` превратится в необработанное отклонение, а внешний промис останется `pending`. Если внутри уже есть `await`, обычно обёртка `new Promise` вообще не нужна — достаточно async-функции.",
-    sources: ["ljr-promise", "ljr-async-await"],
+    sources: ["jsinfo-promise", "jsinfo-async-await"],
   },
 ];
 

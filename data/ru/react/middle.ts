@@ -141,7 +141,7 @@ useEffect(() => {
     answer: 1,
     explanation:
       "Эффект с `[]` создан один раз и видит `count` из первого рендера. Каждый тик ставит `0 + 1`. Решения: функциональное обновление `setCount(c => c + 1)` (лучше всего), добавить `count` в зависимости (интервал будет пересоздаваться) или хранить значение в `ref`.",
-    sources: ["react-queueing-updates", "react-effect-deps", "ljr-closure"],
+    sources: ["react-queueing-updates", "react-effect-deps", "jsinfo-closure"],
   },
   {
     question: "Почему этот эффект выполняется после каждого рендера?",

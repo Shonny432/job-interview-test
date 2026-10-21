@@ -2,49 +2,63 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Quiz } from "@/components/quiz";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { isLocale, locales } from "@/lib/i18n/locales";
 import { getQuestions, isLevelId, isTopicId, levelIds, topicIds } from "@/lib/quiz/catalog";
-import { sources } from "@/lib/quiz/sources";
+import { sources, type Source } from "@/lib/quiz/sources";
 import type { ResolvedQuestion } from "@/lib/quiz/types";
-import { ru } from "@/lib/i18n/ru";
 
 export function generateStaticParams() {
   return topicIds.flatMap((topic) => levelIds.map((level) => ({ topic, level })));
 }
 
-async function resolveParams(params: PageProps<"/quiz/[topic]/[level]">["params"]) {
-  const { topic, level } = await params;
-  if (!isTopicId(topic) || !isLevelId(level)) notFound();
-  return { topic, level };
+type Props = PageProps<"/[lang]/quiz/[topic]/[level]">;
+
+async function resolveParams(params: Props["params"]) {
+  const { lang, topic, level } = await params;
+  if (!isLocale(lang) || !isTopicId(topic) || !isLevelId(level)) notFound();
+  return { lang, topic, level };
 }
 
-export async function generateMetadata({ params }: PageProps<"/quiz/[topic]/[level]">): Promise<Metadata> {
-  const { topic, level } = await resolveParams(params);
-  return { title: `${ru.topics[topic].title} · ${ru.levels[level].title} — ${ru.appTitle}` };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang, topic, level } = await resolveParams(params);
+  const t = getDictionary(lang);
+  return {
+    title: `${t.topics[topic].title} · ${t.levels[level].title} — ${t.appTitle}`,
+    alternates: {
+      languages: Object.fromEntries(locales.map((l) => [l, `/${l}/quiz/${topic}/${level}`])),
+    },
+  };
 }
 
-export default async function QuizPage({ params }: PageProps<"/quiz/[topic]/[level]">) {
-  const { topic, level } = await resolveParams(params);
+export default async function QuizPage({ params }: Props) {
+  const { lang, topic, level } = await resolveParams(params);
+  const t = getDictionary(lang);
 
-  // Разворачиваем ключи литературы на сервере, чтобы не тянуть весь реестр в клиентский бандл
-  const questions: ResolvedQuestion[] = getQuestions(topic, level).map((q) => ({
+  // Разворачиваем ключи литературы на сервере (с учётом языка ссылки),
+  // чтобы не тянуть весь реестр в клиентский бандл
+  const questions: ResolvedQuestion[] = getQuestions(lang, topic, level).map((q) => ({
     ...q,
-    sources: q.sources.map((key) => sources[key]),
+    sources: q.sources.map((key) => {
+      const source: Source = sources[key];
+      return { title: source.title, url: source.urls?.[lang] ?? source.url };
+    }),
   }));
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8 sm:px-6 sm:py-12">
       <Link
-        href="/"
+        href={`/${lang}`}
         className="self-start text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
       >
-        {ru.backToTopics}
+        {t.backToTopics}
       </Link>
       <Quiz
-        // key сбрасывает состояние теста при переходе между темами
-        key={`${topic}/${level}`}
+        // key сбрасывает состояние теста при переходе между темами и языками
+        key={`${lang}/${topic}/${level}`}
         topic={topic}
         level={level}
-        title={ru.quiz.introTitle(ru.topics[topic].title, ru.levels[level].title)}
+        title={t.quiz.introTitle(t.topics[topic].title, t.levels[level].title)}
         questions={questions}
       />
     </main>

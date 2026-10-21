@@ -2,13 +2,17 @@
 
 import { useBestScore } from "@/lib/quiz/best-score";
 import type { LevelId, TopicId } from "@/lib/quiz/types";
-import { ru } from "@/lib/i18n/ru";
+import { useDictionary } from "@/components/i18n-provider";
 
 export function BestScoreBadge({ topic, level }: { topic: TopicId; level: LevelId }) {
   const best = useBestScore(topic, level);
+  const t = useDictionary();
+
+  // Пока неизвестно (гидратация, загрузка из аккаунта) — держим место, чтобы не мигала надпись
+  if (best === undefined) return <span className="h-5 w-10" aria-hidden />;
 
   if (!best) {
-    return <span className="text-xs text-zinc-400 dark:text-zinc-500">{ru.notTaken}</span>;
+    return <span className="text-xs text-zinc-400 dark:text-zinc-500">{t.notTaken}</span>;
   }
 
   const percent = Math.round((best.correct / best.total) * 100);
@@ -20,7 +24,7 @@ export function BestScoreBadge({ topic, level }: { topic: TopicId; level: LevelI
         : "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300";
 
   return (
-    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${color}`} title={ru.bestScore}>
+    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${color}`} title={t.bestScore}>
       {best.correct}/{best.total}
     </span>
   );

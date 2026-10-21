@@ -1,6 +1,7 @@
 import type { LevelId, TopicId } from "@/lib/quiz/types";
+import { slavicPlural as plural } from "./plural";
 
-/** Строки интерфейса. Для английской версии достаточно добавить en.ts той же формы. */
+/** Строки интерфейса. uk.ts и en.ts повторяют эту форму (тип Dictionary). */
 export const ru = {
   appTitle: "Frontend Interview Trainer",
   appSubtitle:
@@ -9,6 +10,17 @@ export const ru = {
   bestScore: "Лучший результат",
   notTaken: "Ещё не проходили",
   backToTopics: "← Все темы",
+
+  language: { label: "Язык интерфейса" },
+
+  auth: {
+    signIn: "Войти",
+    signInHint: "Войдите, чтобы прогресс сохранялся на всех устройствах",
+    withGithub: "Через GitHub",
+    withGoogle: "Через Google",
+    signOut: "Выйти",
+    account: "Аккаунт",
+  },
 
   theme: {
     label: "Тема оформления",
@@ -80,7 +92,7 @@ export const ru = {
     resultTitle: "Тест завершён",
     resultScore: (c: number, n: number) => `${c} из ${n}`,
     resultPercent: (p: number) => `${p}% правильных ответов`,
-    verdict: (p: number) =>
+    verdict: (p: number): string =>
       p >= 90
         ? "Отлично! Тема освоена на уверенном уровне."
         : p >= 70
@@ -100,10 +112,3 @@ export const ru = {
 
 export type Dictionary = typeof ru;
 
-function plural(n: number, one: string, few: string, many: string) {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return one;
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
-  return many;
-}

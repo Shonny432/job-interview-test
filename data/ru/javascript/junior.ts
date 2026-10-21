@@ -11,7 +11,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Примитивы: `number`, `bigint`, `string`, `boolean`, `null`, `undefined`, `symbol`. Всё остальное — `object`, включая массивы, функции, даты. Функции — это объекты, хотя `typeof` для них возвращает `'function'`.",
-    sources: ["ljr-types", "mdn-data-structures"],
+    sources: ["jsinfo-types", "mdn-data-structures"],
   },
   {
     question: "Что вернёт `typeof null`?",
@@ -19,7 +19,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Это историческая ошибка первой реализации языка, которую оставили ради совместимости. `null` — отдельный примитив. Проверять его нужно строгим сравнением: `value === null`.",
-    sources: ["mdn-typeof", "ljr-types"],
+    sources: ["mdn-typeof", "jsinfo-types"],
   },
   {
     question: "Что вернёт `typeof NaN`?",
@@ -27,7 +27,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "`NaN` (Not-a-Number) — специальное значение числового типа, результат некорректной математической операции, например `0 / 0` или `Number('abc')`. Проверка — `Number.isNaN(x)`.",
-    sources: ["ljr-number", "mdn-typeof"],
+    sources: ["jsinfo-number", "mdn-typeof"],
   },
   {
     question: "Чем `let` отличается от `var`?",
@@ -39,7 +39,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Переменная `var`, объявленная внутри `if` или `for`, видна во всей функции. Кроме того, `var` поднимается со значением `undefined` и на верхнем уровне становится свойством `window`, а `let` и `const` до объявления находятся во «временной мёртвой зоне».",
-    sources: ["ljr-var", "ljr-variables"],
+    sources: ["jsinfo-var", "jsinfo-variables"],
   },
   {
     question: "Что произойдёт?",
@@ -53,7 +53,7 @@ user.name = "Bob";`,
     answer: 0,
     explanation:
       "`const` фиксирует ссылку: `user = {}` вызовет ошибку, а содержимое объекта менять можно. Чтобы запретить изменение свойств, используют `Object.freeze` (неглубоко).",
-    sources: ["ljr-variables", "mdn-object-freeze"],
+    sources: ["jsinfo-variables", "mdn-object-freeze"],
   },
   {
     question: "Что выведет код?",
@@ -63,7 +63,7 @@ var x = 5;`,
     answer: 0,
     explanation:
       "Объявление `var` поднимается (hoisting) в начало функции и инициализируется `undefined`, а присваивание остаётся на месте. С `let` или `const` здесь был бы `ReferenceError`.",
-    sources: ["mdn-hoisting", "ljr-var"],
+    sources: ["mdn-hoisting", "jsinfo-var"],
   },
   {
     question: "Что выведет код?",
@@ -85,7 +85,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "`0 == ''` и `'1' == 1` — `true` из-за приведения, а с `===` — `false`. Правила нестрогого сравнения запутаны, поэтому почти всегда используют `===`. Удобное исключение: `x == null` проверяет сразу и `null`, и `undefined`.",
-    sources: ["ljr-comparison", "mdn-equality"],
+    sources: ["jsinfo-comparison", "mdn-equality"],
   },
   {
     question: "Чем `null` отличается от `undefined`?",
@@ -97,7 +97,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "`undefined` получают неинициализированные переменные, отсутствующие свойства и параметры, функции без `return`. `null` присваивают намеренно. `null == undefined` — `true`, но `null === undefined` — `false`.",
-    sources: ["ljr-types"],
+    sources: ["jsinfo-types"],
   },
   {
     question: "Что вернёт `NaN === NaN`?",
@@ -105,7 +105,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "`NaN` не равен ничему, даже самому себе. Для проверки используют `Number.isNaN(x)` или `Object.is(x, NaN)`. Глобальная `isNaN('abc')` сначала приводит аргумент к числу и вернёт `true` для строк.",
-    sources: ["ljr-number", "mdn-equality"],
+    sources: ["jsinfo-number", "mdn-equality"],
   },
   {
     question: "Что выведет `0.1 + 0.2 === 0.3`?",
@@ -113,7 +113,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "Числа хранятся в двоичном формате IEEE-754, и 0.1 и 0.2 нельзя представить точно — сумма равна `0.30000000000000004`. Числа сравнивают с погрешностью (`Math.abs(a - b) < Number.EPSILON`), а деньги считают в копейках целыми числами.",
-    sources: ["ljr-number", "mdn-number-epsilon"],
+    sources: ["jsinfo-number", "mdn-number-epsilon"],
   },
   {
     question: "Чему равны `'5' + 3` и `'5' - 3`?",
@@ -121,7 +121,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "Если один операнд `+` — строка, выполняется конкатенация. Остальные арифметические операторы приводят операнды к числам. Поэтому значения из `input.value` перед сложением преобразуют через `Number()`.",
-    sources: ["ljr-type-conversions"],
+    sources: ["jsinfo-type-conversions"],
   },
   {
     question: "Какое из значений является «ложным» (falsy)?",
@@ -129,7 +129,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "Falsy-значения: `false`, `0`, `-0`, `0n`, `''`, `null`, `undefined`, `NaN`. Всё остальное truthy, включая строку `'0'`, пустой массив `[]` и пустой объект `{}`.",
-    sources: ["ljr-logical-operators", "ljr-type-conversions"],
+    sources: ["jsinfo-logical-operators", "jsinfo-type-conversions"],
   },
   {
     question: "Чем `count || 10` отличается от `count ?? 10`, если `count = 0`?",
@@ -141,7 +141,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "`||` подставляет запасное значение для любого falsy, а `??` — только для `null` и `undefined`. Для чисел и строк, где `0` и `''` — нормальные значения, правильнее `??`.",
-    sources: ["ljr-nullish", "ljr-logical-operators"],
+    sources: ["jsinfo-nullish", "jsinfo-logical-operators"],
   },
   {
     question: "Что вернёт `user?.address?.city`, если `user = {}`?",
@@ -149,7 +149,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "Опциональная цепочка прерывает вычисление и возвращает `undefined`, если значение слева — `null` или `undefined`. Без `?.` обращение `user.address.city` бросило бы `TypeError`. Есть варианты для вызовов `fn?.()` и индексов `arr?.[0]`.",
-    sources: ["ljr-optional-chaining"],
+    sources: ["jsinfo-optional-chaining"],
   },
   {
     question: "Чем стрелочная функция отличается от обычной?",
@@ -161,7 +161,7 @@ let y = 5;`,
     answer: 0,
     explanation:
       "Стрелка берёт `this` из окружения, где создана, поэтому удобна для колбэков внутри методов. Но как метод объекта она не подходит: `this` не будет указывать на объект. Поднимаются целиком только Function Declaration.",
-    sources: ["ljr-arrow-functions", "mdn-this"],
+    sources: ["jsinfo-arrow-functions", "mdn-this"],
   },
   {
     question: "Можно ли вызвать функцию до её объявления?",
@@ -175,7 +175,7 @@ function greet() { console.log("hi"); }`,
     answer: 0,
     explanation:
       "Объявления функций создаются до выполнения кода в своей области. С Function Expression (`const greet = function () {}`) вызов до объявления не сработает: переменная в TDZ (или `undefined` при `var`).",
-    sources: ["ljr-function-expressions", "mdn-hoisting"],
+    sources: ["jsinfo-function-expressions", "mdn-hoisting"],
   },
   {
     question: "Что выведет код?",
@@ -190,7 +190,7 @@ console.log(c());`,
     answer: 0,
     explanation:
       "Это замыкание: возвращённая функция помнит переменную `count` из окружения, где была создана, и каждый вызов её увеличивает. Новый вызов `makeCounter()` создал бы независимый счётчик.",
-    sources: ["ljr-closure", "mdn-closures"],
+    sources: ["jsinfo-closure", "mdn-closures"],
   },
   {
     question: "Что такое замыкание?",
@@ -202,7 +202,7 @@ console.log(c());`,
     answer: 0,
     explanation:
       "Каждая функция в JS запоминает лексическое окружение, в котором создана, и может читать и менять его переменные даже после завершения внешней функции. На этом построены приватные данные, фабрики функций, мемоизация, обработчики событий.",
-    sources: ["ljr-closure", "mdn-closures", "doka-closures"],
+    sources: ["jsinfo-closure", "mdn-closures"],
   },
   {
     question: "Что выведет код?",
@@ -214,7 +214,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "Объекты передаются по ссылке: `b` указывает на тот же объект, что и `a`. Чтобы получить копию, используют spread `{ ...a }` (поверхностно) или `structuredClone(a)` (глубоко).",
-    sources: ["ljr-object-copy"],
+    sources: ["jsinfo-object-copy"],
   },
   {
     question: "Что делает `const copy = { ...original }`?",
@@ -226,7 +226,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "Spread копирует только собственные свойства первого уровня. Если в `original.address` объект, он будет общим для обеих копий. Глубокую копию даёт `structuredClone`, но он не копирует функции и DOM-узлы.",
-    sources: ["ljr-object-copy", "mdn-structured-clone"],
+    sources: ["jsinfo-object-copy", "mdn-structured-clone"],
   },
   {
     question: "Что вернёт `[1, 2, 3].map(x => x * 2)`?",
@@ -234,7 +234,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "`map` создаёт новый массив из результатов колбэка, не изменяя исходный. Похожие немутирующие методы: `filter` (отбор), `reduce` (свёртка в одно значение), `find`, `some`, `every`.",
-    sources: ["ljr-array-methods"],
+    sources: ["jsinfo-array-methods"],
   },
   {
     question: "Что вернёт `[1, 2, 3].forEach(x => x * 2)`?",
@@ -242,7 +242,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "`forEach` нужен для побочных эффектов и всегда возвращает `undefined`. Для нового массива используют `map`. Ещё отличие: из `forEach` нельзя выйти через `break` — для этого есть `for...of`, `some` или `find`.",
-    sources: ["ljr-array-methods"],
+    sources: ["jsinfo-array-methods"],
   },
   {
     question: "Что вернёт `[1, 2, 3, 4].reduce((sum, x) => sum + x, 0)`?",
@@ -250,7 +250,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "`reduce` проходит по массиву, передавая аккумулятор из шага в шаг; второй аргумент — начальное значение. Без него первым аккумулятором станет первый элемент, а на пустом массиве будет `TypeError`.",
-    sources: ["mdn-array-reduce", "ljr-array-methods"],
+    sources: ["mdn-array-reduce", "jsinfo-array-methods"],
   },
   {
     question: "Чем `for...in` отличается от `for...of`?",
@@ -274,7 +274,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "`arr.slice(1, 3)` создаёт новый массив. `arr.splice(1, 2, 'x')` удаляет и вставляет элементы в самом `arr`. Немутирующая альтернатива — `toSpliced()`. Мутирующие методы также: `push`, `pop`, `shift`, `sort`, `reverse`.",
-    sources: ["ljr-array-methods"],
+    sources: ["jsinfo-array-methods"],
   },
   {
     question: "Что вернёт `[NaN].includes(NaN)` и `[NaN].indexOf(NaN)`?",
@@ -282,7 +282,7 @@ console.log(a.n);`,
     answer: 0,
     explanation:
       "`indexOf` использует строгое сравнение `===`, а `NaN !== NaN`. `includes` использует алгоритм SameValueZero, который считает `NaN` равным самому себе. Поэтому для проверки наличия значения `includes` надёжнее.",
-    sources: ["ljr-array-methods", "mdn-equality"],
+    sources: ["jsinfo-array-methods", "mdn-equality"],
   },
   {
     question: "Что выведет код?",
@@ -292,7 +292,7 @@ console.log(name, age);`,
     answer: 0,
     explanation:
       "Деструктуризация достаёт свойства в переменные, а значение по умолчанию подставляется, если свойство `undefined`. Можно переименовывать (`{ name: userName }`) и деструктурировать вложенные объекты и массивы.",
-    sources: ["ljr-destructuring"],
+    sources: ["jsinfo-destructuring"],
   },
   {
     question: "Что выведет `sum(1, 2, 3)`?",
@@ -303,7 +303,7 @@ console.log(name, age);`,
     answer: 0,
     explanation:
       "Rest-параметр собирает оставшиеся аргументы в настоящий массив. В отличие от устаревшего `arguments`, это массив с методами `map` и `reduce`, и он работает в стрелочных функциях.",
-    sources: ["ljr-rest-spread"],
+    sources: ["jsinfo-rest-spread"],
   },
   {
     question: "Что вернёт `Math.max(...[3, 7, 2])`?",
@@ -311,7 +311,7 @@ console.log(name, age);`,
     answer: 0,
     explanation:
       "Spread «раскладывает» массив в отдельные аргументы: `Math.max(3, 7, 2)`. Без spread `Math.max([3, 7, 2])` вернёт `NaN`. Spread также используется для копирования и объединения массивов и объектов.",
-    sources: ["ljr-rest-spread"],
+    sources: ["jsinfo-rest-spread"],
   },
   {
     question: "Что вернёт `JSON.stringify({ a: 1, b: undefined, c: () => 1 })`?",
@@ -319,7 +319,7 @@ console.log(name, age);`,
     answer: 0,
     explanation:
       "Свойства со значениями `undefined`, функциями и символами пропускаются (в массивах они превращаются в `null`). `Date` превращается в строку, `Map` и `Set` — в `{}`. Циклические ссылки вызывают ошибку.",
-    sources: ["ljr-json"],
+    sources: ["jsinfo-json"],
   },
   {
     question: "В каком порядке выведутся числа?",
@@ -331,7 +331,7 @@ console.log(4);`,
     answer: 0,
     explanation:
       "Сначала выполняется синхронный код (1, 4). Затем event loop выполняет все микрозадачи — колбэки промисов (3), и только потом следующую макрозадачу — таймер (2). `setTimeout(fn, 0)` не означает «немедленно».",
-    sources: ["ljr-event-loop", "ljr-microtask"],
+    sources: ["jsinfo-event-loop", "jsinfo-microtask"],
   },
   {
     question: "В каких состояниях может находиться промис?",
@@ -343,7 +343,7 @@ console.log(4);`,
     answer: 0,
     explanation:
       "Промис создаётся в ожидании и один раз переходит в выполненное или отклонённое состояние (settled). Повторные `resolve`/`reject` игнорируются. Отменить промис нельзя — для отмены операций используют `AbortController`.",
-    sources: ["ljr-promise", "mdn-promise"],
+    sources: ["jsinfo-promise", "mdn-promise"],
   },
   {
     question: "Что возвращает `async`-функция?",
@@ -355,7 +355,7 @@ console.log(4);`,
     answer: 0,
     explanation:
       "`async function f() { return 42 }` возвращает `Promise<42>`. Исключение внутри превращается в отклонённый промис. Поэтому результат получают через `await` или `.then()`.",
-    sources: ["ljr-async-await", "mdn-async-function"],
+    sources: ["jsinfo-async-await", "mdn-async-function"],
   },
   {
     question: "Почему `catch` не поймает ошибку?",
@@ -372,7 +372,7 @@ console.log(4);`,
     answer: 0,
     explanation:
       "`try` выполнился синхронно и закончился до ответа сервера. Ошибку в цепочке ловят через `.catch()` либо пишут `await fetch(...)` внутри `try` в async-функции — тогда `catch` сработает.",
-    sources: ["ljr-try-catch", "ljr-async-await"],
+    sources: ["jsinfo-try-catch", "jsinfo-async-await"],
   },
   {
     question: "Что выведет `const arr = ['a', 'b']; console.log(arr[20]);`?",
@@ -380,7 +380,7 @@ console.log(4);`,
     answer: 0,
     explanation:
       "Обращение к несуществующему индексу, как и к отсутствующему свойству объекта, возвращает `undefined` без ошибки. Для последнего элемента удобен `arr.at(-1)`.",
-    sources: ["ljr-array-methods", "mdn-array-at"],
+    sources: ["jsinfo-array-methods", "mdn-array-at"],
   },
   {
     question: "Что выведет код?",
@@ -391,7 +391,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Строки неизменяемы: изменить символ нельзя, присваивание молча игнорируется (в строгом режиме — `TypeError`). Нужно создать новую строку: `s[0].toUpperCase() + s.slice(1)`.",
-    sources: ["ljr-types", "mdn-strict-mode"],
+    sources: ["jsinfo-types", "mdn-strict-mode"],
   },
   {
     question: "Как надёжно проверить, что значение — массив?",
@@ -399,7 +399,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "`typeof []` возвращает `'object'`, а `length` есть и у строк, и у объектов-«псевдомассивов». `Array.isArray` работает даже для массивов из других iframe, где `instanceof Array` ошибается.",
-    sources: ["ljr-array-methods", "mdn-typeof"],
+    sources: ["jsinfo-array-methods", "mdn-typeof"],
   },
   {
     question: "Чем `textContent` безопаснее `innerHTML` при выводе пользовательского текста?",
@@ -435,7 +435,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Например, ссылка не перейдёт по `href`, форма не отправится, чекбокс не переключится. Остановить всплытие — это `event.stopPropagation()`; это разные вещи, и их часто путают.",
-    sources: ["ljr-default-browser-action"],
+    sources: ["jsinfo-default-browser-action"],
   },
   {
     question: "Что такое всплытие события (bubbling)?",
@@ -447,7 +447,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Клик по кнопке внутри `div` вызовет обработчики кнопки, затем `div`, затем выше. Перед всплытием есть фаза погружения (capturing) — от `window` к цели. `event.target` — где произошло событие, `event.currentTarget` — чей обработчик сейчас выполняется.",
-    sources: ["ljr-bubbling", "mdn-event-bubbling"],
+    sources: ["jsinfo-bubbling", "mdn-event-bubbling"],
   },
   {
     question: "В чём суть делегирования событий?",
@@ -459,7 +459,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Вместо 1000 обработчиков на каждой строке таблицы — один на `table`, который определяет цель через `event.target.closest('tr')`. Это экономит память и автоматически работает для добавленных позже элементов. Основано на всплытии.",
-    sources: ["ljr-event-delegation", "ljr-bubbling"],
+    sources: ["jsinfo-event-delegation", "jsinfo-bubbling"],
   },
   {
     question: "Чем `localStorage` отличается от `sessionStorage`?",
@@ -471,7 +471,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Оба хранят строки по домену, объём — несколько мегабайт, на сервер не отправляются (в отличие от cookies). `sessionStorage` к тому же изолирован для каждой вкладки. Токены и секреты хранить там небезопасно: к ним есть доступ у любого скрипта на странице.",
-    sources: ["ljr-localstorage", "mdn-web-storage"],
+    sources: ["jsinfo-localstorage", "mdn-web-storage"],
   },
   {
     question: "Что вернёт `localStorage.getItem('n')` после `localStorage.setItem('n', 5)`?",
@@ -479,7 +479,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Web Storage хранит только строки — значение приводится через `String()`. Объект превратится в `'[object Object]'`, поэтому сложные данные сохраняют через `JSON.stringify` и читают через `JSON.parse`.",
-    sources: ["ljr-localstorage", "ljr-json"],
+    sources: ["jsinfo-localstorage", "jsinfo-json"],
   },
   {
     question: "Чем `DOMContentLoaded` отличается от `load`?",
@@ -491,7 +491,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "Для работы с DOM достаточно `DOMContentLoaded` (скрипты с `defer` выполняются прямо перед ним). `load` ждёт все ресурсы, включая изображения и iframe, — он нужен, например, для измерения размеров картинок.",
-    sources: ["ljr-onload", "mdn-dom-content-loaded"],
+    sources: ["jsinfo-onload", "mdn-dom-content-loaded"],
   },
   {
     question: "Чем `Map` отличается от обычного объекта?",
@@ -503,7 +503,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "У объекта ключи — строки или символы (число `1` станет `'1'`), есть унаследованные свойства. `Map` принимает объекты как ключи, имеет `size`, методы `get/set/has/delete` и удобен для частых добавлений и удалений.",
-    sources: ["ljr-map-set"],
+    sources: ["jsinfo-map-set"],
   },
   {
     question: "Как быстро удалить дубликаты из массива примитивов?",
@@ -511,7 +511,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "`Set` хранит только уникальные значения (сравнение SameValueZero). Spread превращает его обратно в массив. Для массивов объектов нужен ключ: например, `Map` по `id`.",
-    sources: ["ljr-map-set"],
+    sources: ["jsinfo-map-set"],
   },
   {
     question: "Что даёт директива `'use strict'`?",
@@ -535,7 +535,7 @@ console.log(s);`,
     answer: 0,
     explanation:
       "`querySelector` принимает любой CSS-селектор и возвращает первый элемент или `null`. `querySelectorAll` возвращает статичный `NodeList` всех совпадений. У `getElementsByClassName` имя класса передаётся без точки, а нумерация начинается с 0.",
-    sources: ["ljr-dom-nodes"],
+    sources: ["jsinfo-dom-nodes"],
   },
 ];
 

@@ -20,7 +20,7 @@ const price = (type, sum) => discounts[type](sum);`,
     answer: 0,
     explanation:
       "Каждая скидка — отдельная стратегия, а новая добавляется без правки функции `price` (это ещё и пример OCP). В JS стратегия часто — просто объект функций вместо иерархии классов.",
-    sources: ["rg-strategy", "wiki-solid-ru"],
+    sources: ["rg-strategy", "wiki-solid-uk"],
   },
   {
     question: "Почему функция `subscribe` в реализации Observer обычно возвращает функцию отписки?",
@@ -171,7 +171,7 @@ const price = (type, sum) => discounts[type](sum);`,
     answer: 0,
     explanation:
       "Async-генератор скрывает курсоры и номера страниц: потребитель пишет `for await (const item of allItems())` и может остановиться в любой момент, не загружая лишнего. Логика обхода отделена от логики обработки.",
-    sources: ["rg-iterator", "ljr-generators"],
+    sources: ["rg-iterator", "jsinfo-generators"],
   },
   {
     question: "Чем «Шаблонный метод» отличается от «Стратегии»?",
@@ -255,7 +255,7 @@ const price = (type, sum) => discounts[type](sum);`,
     answer: 0,
     explanation:
       "Код, работающий с базовым типом, не ожидает исключения — подстановка ломает программу. Обычно это сигнал, что иерархия выбрана неверно и интерфейс стоит разделить (ISP). Добавлять новые методы LSP не запрещает.",
-    sources: ["wiki-solid-ru", "wiki-solid"],
+    sources: ["wiki-solid-uk", "wiki-solid"],
   },
   {
     question: "Компонент `UserCard` принимает `user: User` (30 полей), а использует только имя и аватар. Какой принцип нарушен?",
@@ -267,7 +267,7 @@ const price = (type, sum) => discounts[type](sum);`,
     answer: 0,
     explanation:
       "С узким интерфейсом `{ name, avatarUrl }` компонент можно использовать для автора комментария или участника чата, а тесты не требуют полного объекта. Кроме того, изменение типа `User` не затронет компонент.",
-    sources: ["wiki-solid-ru"],
+    sources: ["wiki-solid-uk"],
   },
   {
     question: "Что говорит закон Деметры о коде `order.customer.address.city.name`?",
@@ -492,7 +492,7 @@ export const render = (block) => renderers.get(block.type)?.(block);`,
     answer: 0,
     explanation:
       "Так строят расширяемые системы: блоки CMS-редактора, виджеты дашборда, правила валидации. Новый тип добавляется регистрацией, без изменения ядра (OCP).",
-    sources: ["rg-strategy", "wiki-solid-ru"],
+    sources: ["rg-strategy", "wiki-solid-uk"],
   },
   {
     question: "Чем mock отличается от stub в тестах?",
@@ -564,7 +564,7 @@ export const render = (block) => renderers.get(block.type)?.(block);`,
     answer: 0,
     explanation:
       "Обработчик на родителе разделяется всеми дочерними элементами, а уникальное состояние (какой элемент) берётся из `event.target` — внешнее состояние Легковеса. Это экономит память и время инициализации больших списков.",
-    sources: ["rg-flyweight", "ljr-event-delegation"],
+    sources: ["rg-flyweight", "jsinfo-event-delegation"],
   },
   {
     question: "Чем `useReducer` близок к паттерну «Состояние»?",

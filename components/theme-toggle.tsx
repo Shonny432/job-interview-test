@@ -1,47 +1,56 @@
 "use client";
 
-import { useSyncExternalStore, type ReactNode } from "react";
+import { useLayoutEffect, useSyncExternalStore, type ReactNode } from "react";
 import {
+  applyThemePreference,
   readThemePreference,
   saveThemePreference,
   subscribeThemePreference,
   type ThemePreference,
 } from "@/lib/theme";
-import { ru } from "@/lib/i18n/ru";
+import { useDictionary } from "@/components/i18n-provider";
 
-const options: { value: ThemePreference; label: string; icon: ReactNode }[] = [
-  { value: "light", label: ru.theme.light, icon: <SunIcon /> },
-  { value: "dark", label: ru.theme.dark, icon: <MoonIcon /> },
-  { value: "system", label: ru.theme.system, icon: <MonitorIcon /> },
-];
+const icons: Record<ThemePreference, ReactNode> = {
+  light: <SunIcon />,
+  dark: <MoonIcon />,
+  system: <MonitorIcon />,
+};
+const order: ThemePreference[] = ["light", "dark", "system"];
 
 export function ThemeToggle() {
+  const t = useDictionary().theme;
   // На сервере выбор неизвестен (null) — кнопки рендерятся без активного состояния до гидратации
   const preference = useSyncExternalStore(subscribeThemePreference, readThemePreference, () => null);
+
+  // В dev Strict Mode при повторном монтировании React сбрасывает атрибуты <html>,
+  // стирая data-theme от инлайн-скрипта, — применяем тему заново до отрисовки. В проде ничего не меняет.
+  useLayoutEffect(() => {
+    applyThemePreference(readThemePreference());
+  }, []);
 
   return (
     <div
       role="group"
-      aria-label={ru.theme.label}
+      aria-label={t.label}
       className="inline-flex items-center gap-0.5 rounded-full border border-zinc-200 bg-white p-0.5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
     >
-      {options.map((option) => {
-        const active = preference === option.value;
+      {order.map((value) => {
+        const active = preference === value;
         return (
           <button
-            key={option.value}
+            key={value}
             type="button"
             aria-pressed={active}
-            aria-label={option.label}
-            title={option.label}
-            onClick={() => saveThemePreference(option.value)}
+            aria-label={t[value]}
+            title={t[value]}
+            onClick={() => saveThemePreference(value)}
             className={`flex size-8 items-center justify-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 ${
               active
                 ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
                 : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             }`}
           >
-            {option.icon}
+            {icons[value]}
           </button>
         );
       })}

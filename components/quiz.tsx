@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CodeBlock, RichText } from "@/components/rich-text";
 import { saveBestScore } from "@/lib/quiz/best-score";
 import type { LevelId, ResolvedQuestion, TopicId } from "@/lib/quiz/types";
-import { ru } from "@/lib/i18n/ru";
+import { useDictionary, useLocale } from "@/components/i18n-provider";
 
 type Props = {
   topic: TopicId;
@@ -49,7 +49,7 @@ function buildAttempt(cards: Card[], mistakesOnly: boolean): Attempt {
 }
 
 export function Quiz({ topic, level, title, questions }: Props) {
-  const t = ru.quiz;
+  const t = useDictionary().quiz;
   const [allCards] = useState<Card[]>(() => questions.map((q, id) => ({ ...q, id })));
   const [phase, setPhase] = useState<Phase>("intro");
   const [attempt, setAttempt] = useState<Attempt | null>(null);
@@ -129,7 +129,7 @@ function QuestionView({
   onPick: (option: number) => void;
   onNext: () => void;
 }) {
-  const t = ru.quiz;
+  const t = useDictionary().quiz;
   const { cards, picks, index } = attempt;
   const card = cards[index];
   const picked = picks[index];
@@ -288,10 +288,11 @@ const badgeClasses = {
 } as const;
 
 function Sources({ sources }: { sources: ResolvedQuestion["sources"] }) {
+  const t = useDictionary().quiz;
   if (sources.length === 0) return null;
   return (
     <div className="flex flex-col gap-1">
-      <p className="text-sm font-semibold uppercase tracking-wide opacity-70">{ru.quiz.readMore}</p>
+      <p className="text-sm font-semibold uppercase tracking-wide opacity-70">{t.readMore}</p>
       <ul className="flex flex-col gap-1">
         {sources.map((s) => (
           <li key={s.url}>
@@ -319,7 +320,8 @@ function Results({
   onRestart: () => void;
   onRetryMistakes: (cards: Card[]) => void;
 }) {
-  const t = ru.quiz;
+  const t = useDictionary().quiz;
+  const locale = useLocale();
   const { cards, picks } = attempt;
   const mistakes = cards
     .map((card, i) => ({ card, picked: picks[i] }))
@@ -359,7 +361,7 @@ function Results({
             </button>
           )}
           <Link
-            href="/"
+            href={`/${locale}`}
             className="rounded-full border border-zinc-300 px-6 py-3 font-medium transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
           >
             {t.otherTopic}

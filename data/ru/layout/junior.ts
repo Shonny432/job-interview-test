@@ -11,7 +11,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "DOCTYPE — не тег и не подключение ресурсов. Он сообщает браузеру, что страница написана по современным стандартам, и включает standards mode. Без него браузер переходит в quirks mode и эмулирует ошибки старых браузеров (например, другую блочную модель). Кодировку задаёт `<meta charset=\"utf-8\">`, а не DOCTYPE.",
-    sources: ["mdn-doctype", "mdn-quirks", "doka-doctype"],
+    sources: ["mdn-doctype", "mdn-quirks", "wd-html-document"],
   },
   {
     question: "Какой набор состоит только из семантических тегов HTML5?",
@@ -23,7 +23,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "Семантические теги описывают смысл содержимого: шапка, навигация, основной контент, самостоятельная статья, подвал. `<div>` и `<span>` — нейтральные контейнеры без смысла, а `<b>` и `<i>` — презентационные (выделение без смысловой важности). Семантика помогает скринридерам, поисковикам и читаемости кода.",
-    sources: ["mdn-semantics", "doka-semantics"],
+    sources: ["mdn-semantics", "wd-html-semantic"],
   },
   {
     question: "Сколько видимых элементов `<main>` может быть на странице и для чего он нужен?",
@@ -35,7 +35,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "`<main>` обозначает основной контент документа, уникальный для этой страницы (без шапки, меню и подвала). Видимым он должен быть только один (остальные — с атрибутом `hidden`). Это ориентир (landmark) для скринридеров: по нему пользователь перескакивает сразу к содержимому. `<section>` — это тематический раздел, а не замена `<main>`.",
-    sources: ["mdn-html-elements", "mdn-landmarks", "doka-semantics"],
+    sources: ["mdn-html-elements", "mdn-landmarks", "wd-html-semantic"],
   },
   {
     question: "Чем `<div>` отличается от `<span>` по умолчанию?",
@@ -139,7 +139,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "Пустой `alt=\"\"` говорит скринридерам, что изображение декоративное и его нужно пропустить. Если не указать `alt` вовсе, скринридер может зачитать имя файла. Текст вроде «картинка» бесполезен: `alt` должен передавать смысл изображения, а не факт его наличия.",
-    sources: ["mdn-img", "doka-img", "mdn-a11y"],
+    sources: ["mdn-img", "wd-html-images", "mdn-a11y"],
   },
   {
     question: "Что делает `box-sizing: border-box`?",
@@ -151,7 +151,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "При `content-box` (по умолчанию) `width` задаёт только ширину содержимого, и `padding` с `border` прибавляются сверху: `width: 200px` + `padding: 20px` = 240px. При `border-box` итоговая ширина равна ровно 200px, а содержимое ужимается. Поэтому многие сбросы стилей ставят `border-box` всем элементам. `margin` в размер никогда не входит.",
-    sources: ["mdn-box-sizing", "mdn-box-model", "doka-box-model"],
+    sources: ["mdn-box-sizing", "mdn-box-model", "wd-css-box-model"],
   },
   {
     question: "Чем `padding` отличается от `margin`?",
@@ -163,7 +163,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "В блочной модели порядок такой: content → padding → border → margin. `padding` находится внутри рамки и закрашивается фоном элемента, `margin` — снаружи и прозрачен. Кроме того, вертикальные `margin` соседних блоков могут схлопываться, а `padding` — никогда, и `margin` может быть отрицательным, а `padding` — нет.",
-    sources: ["mdn-box-model", "doka-box-model"],
+    sources: ["mdn-box-model", "wd-css-box-model"],
   },
   {
     question: "Два блока стоят друг под другом. У верхнего `margin-bottom: 20px`, у нижнего `margin-top: 30px`. Какое расстояние будет между ними?",
@@ -183,7 +183,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "Специфичность сравнивается по разрядам (ID, классы/атрибуты/псевдоклассы, теги): `#nav a` = (1,0,1), `.menu .item a.link` = (0,3,1). Первый разряд важнее, поэтому побеждает ID. Порядок в файле решает только при равной специфичности.",
-    sources: ["mdn-specificity", "doka-specificity"],
+    sources: ["mdn-specificity", "wd-css-specificity"],
   },
   {
     question: "Какое из этих свойств наследуется дочерними элементами по умолчанию?",
@@ -215,7 +215,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "`relative` сдвигает элемент визуально относительно того места, где он был бы в потоке, но место в потоке не освобождается — соседи не двигаются. Также `relative` часто ставят родителю, чтобы он стал точкой отсчёта для абсолютно позиционированных потомков. Относительно окна позиционирует `fixed`.",
-    sources: ["mdn-position", "doka-position"],
+    sources: ["mdn-position", "csstricks-position"],
   },
   {
     question: "Относительно чего позиционируется элемент с `position: absolute`?",
@@ -239,7 +239,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "`sticky` — гибрид `relative` и `fixed`: до порога элемент в потоке, после — закреплён, пока не закончится его родительский контейнер. Типичные причины, почему sticky «не работает»: не задан `top`, у предка стоит `overflow: hidden/auto`, или родитель по высоте равен самому элементу.",
-    sources: ["mdn-position", "doka-position"],
+    sources: ["mdn-position", "csstricks-position"],
   },
   {
     question: "Для каких элементов работает `z-index`?",
@@ -251,7 +251,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "`z-index` управляет порядком наложения и действует на позиционированные элементы и на дочерние элементы flex/grid-контейнеров. У обычного `static`-блока вне flex/grid он игнорируется. Важно помнить про контексты наложения: `z-index: 9999` не поможет, если родитель находится в «нижнем» контексте.",
-    sources: ["mdn-z-index", "doka-z-index", "mdn-stacking-context"],
+    sources: ["mdn-z-index", "wd-css-z-index", "mdn-stacking-context"],
   },
   {
     question: "Чем `rem` отличается от `em`?",
@@ -263,7 +263,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "`rem` (root em) всегда отталкивается от `font-size` у `<html>` (обычно 16px), поэтому размеры предсказуемы. `em` зависит от контекста и при вложенности накапливается: `font-size: 1.2em` внутри `1.2em` даст 1.44 от базового. От размеров окна зависят `vw`/`vh`.",
-    sources: ["mdn-units", "doka-units"],
+    sources: ["mdn-units", "wd-css-sizing"],
   },
   {
     question: "Чему равно `50vw`?",
@@ -287,7 +287,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "В mobile-first базовый CSS пишется для маленьких экранов, а `@media (min-width: ...)` добавляет стили по мере роста экрана. Так мобильные устройства получают минимум переопределений, а стили проще наращивать. Подход через `max-width` — это desktop-first. По этому же принципу работают брейкпоинты в Tailwind.",
-    sources: ["mdn-media-queries", "doka-media", "mdn-responsive-design"],
+    sources: ["mdn-media-queries", "wd-media-queries", "mdn-responsive-design"],
   },
   {
     question: "Зачем нужен `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`?",
@@ -311,7 +311,7 @@ const questions: Question[] = [
     answer: 1,
     explanation:
       "`justify-content` работает по главной оси (main axis), `align-items` — по поперечной (cross axis). При `flex-direction: row` главная ось горизонтальная, а при `column` — вертикальная, и тогда `justify-content` выравнивает по вертикали. Поэтому «всегда по горизонтали» — неверно.",
-    sources: ["mdn-flexbox", "css-tricks-flexbox", "doka-flexbox"],
+    sources: ["mdn-flexbox", "css-tricks-flexbox", "wd-css-flexbox"],
   },
   {
     question: "Контейнер: `display: flex; flex-direction: column; justify-content: center`. Как будут выровнены дочерние элементы?",
@@ -371,7 +371,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "`repeat(3, 1fr)` — то же самое, что `1fr 1fr 1fr`. Единица `fr` — доля свободного пространства grid-контейнера. Строки задаются через `grid-template-rows`. Нюанс: `1fr` по умолчанию означает `minmax(auto, 1fr)`, поэтому длинный контент может растянуть колонку.",
-    sources: ["mdn-grid", "css-tricks-grid", "doka-grid"],
+    sources: ["mdn-grid", "css-tricks-grid", "wd-css-grid"],
   },
   {
     question: "Как растянуть grid-элемент на всю ширину сетки, независимо от количества колонок?",
@@ -427,7 +427,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "CSS custom properties объявляются с двумя дефисами и читаются через `var()`, можно с запасным значением: `var(--main, black)`. Синтаксис `$var` — это Sass, `@var` — Less; они вычисляются при сборке. CSS-переменные живут в браузере: наследуются, участвуют в каскаде и могут меняться в медиазапросах или через JS.",
-    sources: ["mdn-custom-properties", "doka-custom-properties"],
+    sources: ["mdn-custom-properties", "wd-css-custom-properties"],
   },
   {
     question: "Что означают последние две цифры в цвете `#3366ff80`?",
@@ -451,7 +451,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "`<img>` — это контент: у него есть `alt` для доступности, он индексируется поисковиками, поддерживает `srcset`, `loading=\"lazy\"` и печатается. `background-image` подходит для декора: фоны, узоры, элементы оформления, которые не несут смысла. Формат файла на выбор не влияет.",
-    sources: ["mdn-img", "doka-img"],
+    sources: ["mdn-img", "wd-html-images"],
   },
   {
     question: "Зачем нужны разные уровни заголовков `<h1>`–`<h6>`, если размер можно задать стилями?",
@@ -463,7 +463,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "Уровень заголовка — это семантика, а не размер. Пользователи скринридеров часто перемещаются по странице именно по заголовкам. Поэтому уровни не стоит пропускать ради внешнего вида: нужный размер задают через CSS, а уровень выбирают по структуре.",
-    sources: ["mdn-semantics", "doka-semantics", "mdn-a11y"],
+    sources: ["mdn-semantics", "wd-html-semantic", "mdn-a11y"],
   },
   {
     question: "Когда нужно использовать `<a>`, а когда `<button>`?",
@@ -499,7 +499,7 @@ const questions: Question[] = [
     answer: 2,
     explanation:
       "При `method=\"get\"` данные кодируются в query string, поэтому их видно в адресной строке, они сохраняются в истории и логах — для паролей это не подходит. `POST` передаёт данные в теле запроса. Без JavaScript форму отправляют атрибутами `action` (URL) и `method` у тега `<form>`.",
-    sources: ["mdn-forms", "doka-forms"],
+    sources: ["mdn-forms", "wd-forms"],
   },
   {
     question: "Что даёт поле `<input type=\"email\">` по сравнению с `type=\"text\"`?",
@@ -523,7 +523,7 @@ const questions: Question[] = [
     answer: 0,
     explanation:
       "`required` включает встроенную клиентскую валидацию: при пустом поле `submit` блокируется, а поле получает псевдокласс `:invalid`. Только для чтения — это `readonly`. Клиентская валидация — лишь удобство для пользователя: обойти её легко, поэтому сервер обязан проверять данные сам.",
-    sources: ["mdn-form-validation", "doka-forms"],
+    sources: ["mdn-form-validation", "wd-forms"],
   },
   {
     question: "В чём суть подхода utility-first в Tailwind CSS?",
