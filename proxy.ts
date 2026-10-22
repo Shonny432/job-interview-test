@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { defaultLocale, isLocale, LOCALE_COOKIE, locales, matchLocale } from "@/lib/i18n/locales";
+import { defaultLocale, isVisibleLocale, LOCALE_COOKIE, locales, matchLocale } from "@/lib/i18n/locales";
 
 /** Адреса без языка (`/`, `/quiz/react/junior`) перенаправляются на язык пользователя. */
 export function proxy(request: NextRequest) {
@@ -9,7 +9,7 @@ export function proxy(request: NextRequest) {
 
   const saved = request.cookies.get(LOCALE_COOKIE)?.value;
   const locale =
-    (saved && isLocale(saved) ? saved : null) ??
+    (saved && isVisibleLocale(saved) ? saved : null) ??
     matchLocale(request.headers.get("accept-language")) ??
     defaultLocale;
 

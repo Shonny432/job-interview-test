@@ -64,6 +64,27 @@ import enPatternsSenior from "@/data/en/patterns/senior";
 import enSystemDesignJunior from "@/data/en/system-design/junior";
 import enSystemDesignMiddle from "@/data/en/system-design/middle";
 import enSystemDesignSenior from "@/data/en/system-design/senior";
+import plLayoutJunior from "@/data/pl/layout/junior";
+import plLayoutMiddle from "@/data/pl/layout/middle";
+import plLayoutSenior from "@/data/pl/layout/senior";
+import plJavascriptJunior from "@/data/pl/javascript/junior";
+import plJavascriptMiddle from "@/data/pl/javascript/middle";
+import plJavascriptSenior from "@/data/pl/javascript/senior";
+import plReactJunior from "@/data/pl/react/junior";
+import plReactMiddle from "@/data/pl/react/middle";
+import plReactSenior from "@/data/pl/react/senior";
+import plNextjsJunior from "@/data/pl/nextjs/junior";
+import plNextjsMiddle from "@/data/pl/nextjs/middle";
+import plNextjsSenior from "@/data/pl/nextjs/senior";
+import plTypescriptJunior from "@/data/pl/typescript/junior";
+import plTypescriptMiddle from "@/data/pl/typescript/middle";
+import plTypescriptSenior from "@/data/pl/typescript/senior";
+import plPatternsJunior from "@/data/pl/patterns/junior";
+import plPatternsMiddle from "@/data/pl/patterns/middle";
+import plPatternsSenior from "@/data/pl/patterns/senior";
+import plSystemDesignJunior from "@/data/pl/system-design/junior";
+import plSystemDesignMiddle from "@/data/pl/system-design/middle";
+import plSystemDesignSenior from "@/data/pl/system-design/senior";
 
 export const topicIds = [
   "layout",
@@ -105,6 +126,15 @@ const questions: Record<Locale, Record<TopicId, Record<LevelId, Question[]>>> = 
     typescript: { junior: enTypescriptJunior, middle: enTypescriptMiddle, senior: enTypescriptSenior },
     patterns: { junior: enPatternsJunior, middle: enPatternsMiddle, senior: enPatternsSenior },
     "system-design": { junior: enSystemDesignJunior, middle: enSystemDesignMiddle, senior: enSystemDesignSenior },
+  },
+  pl: {
+    layout: { junior: plLayoutJunior, middle: plLayoutMiddle, senior: plLayoutSenior },
+    javascript: { junior: plJavascriptJunior, middle: plJavascriptMiddle, senior: plJavascriptSenior },
+    react: { junior: plReactJunior, middle: plReactMiddle, senior: plReactSenior },
+    nextjs: { junior: plNextjsJunior, middle: plNextjsMiddle, senior: plNextjsSenior },
+    typescript: { junior: plTypescriptJunior, middle: plTypescriptMiddle, senior: plTypescriptSenior },
+    patterns: { junior: plPatternsJunior, middle: plPatternsMiddle, senior: plPatternsSenior },
+    "system-design": { junior: plSystemDesignJunior, middle: plSystemDesignMiddle, senior: plSystemDesignSenior },
   },
 };
 

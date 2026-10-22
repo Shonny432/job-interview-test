@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
-import { LOCALE_COOKIE, localeLabels, locales, type Locale } from "@/lib/i18n/locales";
+import { LOCALE_COOKIE, localeLabels, visibleLocales, type Locale } from "@/lib/i18n/locales";
 
 /** Тот же путь, но с другим языком в первом сегменте: /ru/quiz/... → /en/quiz/... */
 function swapLocale(pathname: string, locale: Locale) {
@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
       aria-label={t.language.label}
       className="inline-flex items-center gap-0.5 rounded-full border border-zinc-200 bg-white p-0.5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
     >
-      {locales.map((locale) => {
+      {visibleLocales.map((locale) => {
         const active = locale === current;
         return (
           <Link

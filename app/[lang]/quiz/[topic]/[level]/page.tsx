@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Quiz } from "@/components/quiz";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales } from "@/lib/i18n/locales";
+import { isLocale, visibleLocales } from "@/lib/i18n/locales";
 import { getQuestions, isLevelId, isTopicId, levelIds, topicIds } from "@/lib/quiz/catalog";
 import { sources, type Source } from "@/lib/quiz/sources";
 import type { ResolvedQuestion } from "@/lib/quiz/types";
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${t.topics[topic].title} · ${t.levels[level].title} — ${t.appTitle}`,
     alternates: {
-      languages: Object.fromEntries(locales.map((l) => [l, `/${l}/quiz/${topic}/${level}`])),
+      languages: Object.fromEntries(visibleLocales.map((l) => [l, `/${l}/quiz/${topic}/${level}`])),
     },
   };
 }
