@@ -14,6 +14,11 @@ export const pl: Dictionary = {
 
   language: { label: "Język interfejsu" },
 
+  progress: {
+    label: "Zapisuj postęp w teście",
+    hint: "Jeśli zamkniesz kartę lub przeglądarkę, test wznowi się od tego samego pytania",
+  },
+
   auth: {
     signIn: "Zaloguj się",
     signInHint: "Zaloguj się, aby postępy zapisywały się na wszystkich urządzeniach",
@@ -108,5 +113,7 @@ export const pl: Dictionary = {
     noMistakes: "Bez błędów — ani jednej złej odpowiedzi!",
     yourAnswer: "Twoja odpowiedź:",
     mistakesMode: "Tryb powtórki błędów",
+    restartAttempt: "Zacznij od nowa",
+    restartConfirm: "Zacząć test od nowa? Bieżący postęp zostanie utracony.",
   },
 };

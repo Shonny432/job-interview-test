@@ -7,6 +7,7 @@ import { AuthMenu } from "@/components/auth-menu";
 import { I18nProvider } from "@/components/i18n-provider";
 import { InlineScript } from "@/components/inline-script";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ProgressToggle } from "@/components/progress-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales } from "@/lib/i18n/locales";
@@ -82,6 +83,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             </div>
           </header>
           {children}
+          <footer className="mx-auto w-full max-w-5xl border-t border-zinc-200 px-4 py-6 sm:px-6 dark:border-zinc-800">
+            <ProgressToggle />
+          </footer>
         </I18nProvider>
       </body>
     </html>

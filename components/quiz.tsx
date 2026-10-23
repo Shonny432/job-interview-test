@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CodeBlock, RichText } from "@/components/rich-text";
+import {
+  clearAttempt,
+  parseSavedAttempt,
+  saveAttempt,
+  useSavedAttemptRaw,
+  type SavedAttempt,
+} from "@/lib/quiz/attempt-storage";
 import { saveBestScore } from "@/lib/quiz/best-score";
 import type { LevelId, ResolvedQuestion, TopicId } from "@/lib/quiz/types";
 import { useDictionary, useLocale } from "@/components/i18n-provider";
@@ -14,8 +21,10 @@ type Props = {
   questions: ResolvedQuestion[];
 };
 
-/** Вопрос в рамках одной попытки: варианты перемешаны, `answer` пересчитан. */
-type Card = ResolvedQuestion & { id: number };
+type Order = [number, number, number];
+
+/** Вопрос в рамках одной попытки: варианты перемешаны в порядке `order`, `answer` пересчитан. */
+type Card = ResolvedQuestion & { id: number; order: Order };
 
 type Attempt = {
   cards: Card[];
@@ -36,42 +45,92 @@ function shuffle<T>(items: readonly T[]): T[] {
   return result;
 }
 
-function buildAttempt(cards: Card[], mistakesOnly: boolean): Attempt {
-  const shuffled = shuffle(cards).map((card) => {
-    const order = shuffle([0, 1, 2] as const);
-    return {
-      ...card,
-      options: order.map((i) => card.options[i]) as Card["options"],
-      answer: order.indexOf(card.answer) as Card["answer"],
-    };
-  });
-  return { cards: shuffled, picks: shuffled.map(() => null), index: 0, mistakesOnly };
+/** Карточка из исходного вопроса с заданным порядком вариантов. */
+function toCard(question: ResolvedQuestion, id: number, order: Order): Card {
+  return {
+    ...question,
+    id,
+    order,
+    options: order.map((i) => question.options[i]) as Card["options"],
+    answer: order.indexOf(question.answer) as Card["answer"],
+  };
+}
+
+function buildAttempt(questions: ResolvedQuestion[], ids: number[], mistakesOnly: boolean): Attempt {
+  const cards = shuffle(ids).map((id) => toCard(questions[id], id, shuffle([0, 1, 2]) as Order));
+  return { cards, picks: cards.map(() => null), index: 0, mistakesOnly };
+}
+
+function restoreAttempt(questions: ResolvedQuestion[], saved: SavedAttempt): Attempt {
+  return {
+    cards: saved.ids.map((id, i) => toCard(questions[id], id, saved.orders[i])),
+    picks: saved.picks,
+    index: saved.index,
+    mistakesOnly: saved.mistakesOnly,
+  };
+}
+
+function serialize(attempt: Attempt, total: number): SavedAttempt {
+  return {
+    total,
+    ids: attempt.cards.map((c) => c.id),
+    orders: attempt.cards.map((c) => c.order),
+    picks: attempt.picks,
+    index: attempt.index,
+    mistakesOnly: attempt.mistakesOnly,
+  };
 }
 
 export function Quiz({ topic, level, title, questions }: Props) {
   const t = useDictionary().quiz;
-  const [allCards] = useState<Card[]>(() => questions.map((q, id) => ({ ...q, id })));
+  const allIds = useMemo(() => questions.map((_, id) => id), [questions]);
+
+  // Незавершённая попытка из прошлого визита (если включено «Сохранять процесс»)
+  const savedRaw = useSavedAttemptRaw(topic, level);
+  const restored = useMemo(() => {
+    const saved = savedRaw ? parseSavedAttempt(savedRaw, questions.length) : null;
+    return saved ? restoreAttempt(questions, saved) : null;
+  }, [savedRaw, questions]);
+
   const [phase, setPhase] = useState<Phase>("intro");
   const [attempt, setAttempt] = useState<Attempt | null>(null);
 
-  const start = useCallback(
-    (cards: Card[], mistakesOnly = false) => {
-      setAttempt(buildAttempt(cards, mistakesOnly));
+  // Сохранённая попытка нашлась до того, как пользователь что-то начал, — продолжаем её.
+  // Забираем в своё состояние один раз, чтобы выключение настройки не сбросило открытый тест.
+  if (restored && !attempt && phase === "intro") {
+    setAttempt(restored);
+    setPhase("playing");
+  }
+
+  const update = useCallback(
+    (next: Attempt) => {
+      setAttempt(next);
       setPhase("playing");
+      saveAttempt(topic, level, serialize(next, questions.length));
+    },
+    [topic, level, questions.length],
+  );
+
+  const start = useCallback(
+    (ids: number[], mistakesOnly = false) => {
+      update(buildAttempt(questions, ids, mistakesOnly));
       window.scrollTo({ top: 0 });
     },
-    [],
+    [questions, update],
   );
 
   if (phase === "intro" || !attempt) {
     return (
-      <div className="flex flex-col gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8 dark:border-zinc-800 dark:bg-zinc-900">
+      <div
+        // До гидратации неизвестно, есть ли сохранённая попытка — не показываем вступление раньше времени
+        className={`flex flex-col gap-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8 dark:border-zinc-800 dark:bg-zinc-900 ${savedRaw === undefined ? "invisible" : ""}`}
+      >
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
-        <p className="text-zinc-600 dark:text-zinc-400">{t.introText(allCards.length)}</p>
+        <p className="text-zinc-600 dark:text-zinc-400">{t.introText(questions.length)}</p>
         <p className="text-sm text-zinc-500 dark:text-zinc-500">{t.introHint}</p>
         <button
           type="button"
-          onClick={() => start(allCards)}
+          onClick={() => start(allIds)}
           autoFocus
           className="self-start rounded-full bg-zinc-900 px-6 py-3 font-medium text-white transition-colors hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
         >
@@ -85,8 +144,8 @@ export function Quiz({ topic, level, title, questions }: Props) {
     return (
       <Results
         attempt={attempt}
-        onRestart={() => start(allCards)}
-        onRetryMistakes={(cards) => start(cards, true)}
+        onRestart={() => start(allIds)}
+        onRetryMistakes={(cards) => start(cards.map((c) => c.id), true)}
       />
     );
   }
@@ -94,17 +153,15 @@ export function Quiz({ topic, level, title, questions }: Props) {
   return (
     <QuestionView
       attempt={attempt}
-      onPick={(option) =>
-        setAttempt((a) => {
-          if (!a || a.picks[a.index] !== null) return a;
-          const picks = [...a.picks];
-          picks[a.index] = option;
-          return { ...a, picks };
-        })
-      }
+      onPick={(option) => {
+        if (attempt.picks[attempt.index] !== null) return;
+        const picks = [...attempt.picks];
+        picks[attempt.index] = option;
+        update({ ...attempt, picks });
+      }}
       onNext={() => {
         if (attempt.index + 1 < attempt.cards.length) {
-          setAttempt({ ...attempt, index: attempt.index + 1 });
+          update({ ...attempt, index: attempt.index + 1 });
           window.scrollTo({ top: 0, behavior: "smooth" });
           return;
         }
@@ -113,8 +170,13 @@ export function Quiz({ topic, level, title, questions }: Props) {
           const correct = attempt.cards.filter((c, i) => attempt.picks[i] === c.answer).length;
           saveBestScore(topic, level, { correct, total: attempt.cards.length });
         }
+        // Тест пройден — продолжать нечего
+        clearAttempt(topic, level);
         setPhase("finished");
         window.scrollTo({ top: 0 });
+      }}
+      onRestart={() => {
+        if (window.confirm(t.restartConfirm)) start(allIds);
       }}
     />
   );
@@ -124,10 +186,12 @@ function QuestionView({
   attempt,
   onPick,
   onNext,
+  onRestart,
 }: {
   attempt: Attempt;
   onPick: (option: number) => void;
   onNext: () => void;
+  onRestart: () => void;
 }) {
   const t = useDictionary().quiz;
   const { cards, picks, index } = attempt;
@@ -166,7 +230,16 @@ function QuestionView({
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-400">
           <span>{t.questionOf(index + 1, cards.length)}</span>
-          <span>{t.score(correctSoFar)}</span>
+          <span className="flex items-center gap-3">
+            <span>{t.score(correctSoFar)}</span>
+            <button
+              type="button"
+              onClick={onRestart}
+              className="rounded underline underline-offset-4 transition-colors hover:text-zinc-900 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:hover:text-zinc-100"
+            >
+              {t.restartAttempt}
+            </button>
+          </span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
           <div

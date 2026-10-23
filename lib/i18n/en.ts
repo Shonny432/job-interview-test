@@ -13,6 +13,11 @@ export const en: Dictionary = {
 
   language: { label: "Interface language" },
 
+  progress: {
+    label: "Save quiz progress",
+    hint: "If you close the tab or browser, the quiz resumes from the same question",
+  },
+
   auth: {
     signIn: "Sign in",
     signInHint: "Sign in to keep your progress across devices",
@@ -107,5 +112,7 @@ export const en: Dictionary = {
     noMistakes: "No mistakes — not a single wrong answer!",
     yourAnswer: "Your answer:",
     mistakesMode: "Mistakes review mode",
+    restartAttempt: "Start over",
+    restartConfirm: "Start the quiz over? Your current progress will be lost.",
   },
 };
