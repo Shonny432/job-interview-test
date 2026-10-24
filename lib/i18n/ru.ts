@@ -50,6 +50,11 @@ export const ru = {
       description: "Компоненты, хуки, рендеринг, Context, lazy loading, Redux Toolkit и TanStack Query.",
       tags: ["Hooks", "Context", "Redux Toolkit", "TanStack Query", "Lazy"],
     },
+    "state-management": {
+      title: "Управление состоянием",
+      description: "useState и useReducer, prop drilling, Context, Redux Toolkit, Zustand, а также серверное состояние: TanStack Query, RTK Query, SWR и loader/action в React Router.",
+      tags: ["useState", "useReducer", "Context", "Redux Toolkit", "Zustand", "TanStack Query", "RTK Query", "SWR", "React Router"],
+    },
     nextjs: {
       title: "Next.js",
       description: "App Router, Server и Client Components, рендеринг, кэширование, Server Actions, Next.js 16.",

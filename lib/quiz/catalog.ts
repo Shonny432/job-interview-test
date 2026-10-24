@@ -10,6 +10,9 @@ import ruJavascriptSenior from "@/data/ru/javascript/senior";
 import ruReactJunior from "@/data/ru/react/junior";
 import ruReactMiddle from "@/data/ru/react/middle";
 import ruReactSenior from "@/data/ru/react/senior";
+import ruStateManagementJunior from "@/data/ru/state-management/junior";
+import ruStateManagementMiddle from "@/data/ru/state-management/middle";
+import ruStateManagementSenior from "@/data/ru/state-management/senior";
 import ruNextjsJunior from "@/data/ru/nextjs/junior";
 import ruNextjsMiddle from "@/data/ru/nextjs/middle";
 import ruNextjsSenior from "@/data/ru/nextjs/senior";
@@ -31,6 +34,9 @@ import ukJavascriptSenior from "@/data/uk/javascript/senior";
 import ukReactJunior from "@/data/uk/react/junior";
 import ukReactMiddle from "@/data/uk/react/middle";
 import ukReactSenior from "@/data/uk/react/senior";
+import ukStateManagementJunior from "@/data/uk/state-management/junior";
+import ukStateManagementMiddle from "@/data/uk/state-management/middle";
+import ukStateManagementSenior from "@/data/uk/state-management/senior";
 import ukNextjsJunior from "@/data/uk/nextjs/junior";
 import ukNextjsMiddle from "@/data/uk/nextjs/middle";
 import ukNextjsSenior from "@/data/uk/nextjs/senior";
@@ -52,6 +58,9 @@ import enJavascriptSenior from "@/data/en/javascript/senior";
 import enReactJunior from "@/data/en/react/junior";
 import enReactMiddle from "@/data/en/react/middle";
 import enReactSenior from "@/data/en/react/senior";
+import enStateManagementJunior from "@/data/en/state-management/junior";
+import enStateManagementMiddle from "@/data/en/state-management/middle";
+import enStateManagementSenior from "@/data/en/state-management/senior";
 import enNextjsJunior from "@/data/en/nextjs/junior";
 import enNextjsMiddle from "@/data/en/nextjs/middle";
 import enNextjsSenior from "@/data/en/nextjs/senior";
@@ -73,6 +82,9 @@ import plJavascriptSenior from "@/data/pl/javascript/senior";
 import plReactJunior from "@/data/pl/react/junior";
 import plReactMiddle from "@/data/pl/react/middle";
 import plReactSenior from "@/data/pl/react/senior";
+import plStateManagementJunior from "@/data/pl/state-management/junior";
+import plStateManagementMiddle from "@/data/pl/state-management/middle";
+import plStateManagementSenior from "@/data/pl/state-management/senior";
 import plNextjsJunior from "@/data/pl/nextjs/junior";
 import plNextjsMiddle from "@/data/pl/nextjs/middle";
 import plNextjsSenior from "@/data/pl/nextjs/senior";
@@ -90,6 +102,7 @@ export const topicIds = [
   "layout",
   "javascript",
   "react",
+  "state-management",
   "nextjs",
   "typescript",
   "patterns",
@@ -104,6 +117,7 @@ const questions: Record<Locale, Record<TopicId, Record<LevelId, Question[]>>> = 
     layout: { junior: ruLayoutJunior, middle: ruLayoutMiddle, senior: ruLayoutSenior },
     javascript: { junior: ruJavascriptJunior, middle: ruJavascriptMiddle, senior: ruJavascriptSenior },
     react: { junior: ruReactJunior, middle: ruReactMiddle, senior: ruReactSenior },
+    "state-management": { junior: ruStateManagementJunior, middle: ruStateManagementMiddle, senior: ruStateManagementSenior },
     nextjs: { junior: ruNextjsJunior, middle: ruNextjsMiddle, senior: ruNextjsSenior },
     typescript: { junior: ruTypescriptJunior, middle: ruTypescriptMiddle, senior: ruTypescriptSenior },
     patterns: { junior: ruPatternsJunior, middle: ruPatternsMiddle, senior: ruPatternsSenior },
@@ -113,6 +127,7 @@ const questions: Record<Locale, Record<TopicId, Record<LevelId, Question[]>>> = 
     layout: { junior: ukLayoutJunior, middle: ukLayoutMiddle, senior: ukLayoutSenior },
     javascript: { junior: ukJavascriptJunior, middle: ukJavascriptMiddle, senior: ukJavascriptSenior },
     react: { junior: ukReactJunior, middle: ukReactMiddle, senior: ukReactSenior },
+    "state-management": { junior: ukStateManagementJunior, middle: ukStateManagementMiddle, senior: ukStateManagementSenior },
     nextjs: { junior: ukNextjsJunior, middle: ukNextjsMiddle, senior: ukNextjsSenior },
     typescript: { junior: ukTypescriptJunior, middle: ukTypescriptMiddle, senior: ukTypescriptSenior },
     patterns: { junior: ukPatternsJunior, middle: ukPatternsMiddle, senior: ukPatternsSenior },
@@ -122,6 +137,7 @@ const questions: Record<Locale, Record<TopicId, Record<LevelId, Question[]>>> = 
     layout: { junior: enLayoutJunior, middle: enLayoutMiddle, senior: enLayoutSenior },
     javascript: { junior: enJavascriptJunior, middle: enJavascriptMiddle, senior: enJavascriptSenior },
     react: { junior: enReactJunior, middle: enReactMiddle, senior: enReactSenior },
+    "state-management": { junior: enStateManagementJunior, middle: enStateManagementMiddle, senior: enStateManagementSenior },
     nextjs: { junior: enNextjsJunior, middle: enNextjsMiddle, senior: enNextjsSenior },
     typescript: { junior: enTypescriptJunior, middle: enTypescriptMiddle, senior: enTypescriptSenior },
     patterns: { junior: enPatternsJunior, middle: enPatternsMiddle, senior: enPatternsSenior },
@@ -131,6 +147,7 @@ const questions: Record<Locale, Record<TopicId, Record<LevelId, Question[]>>> = 
     layout: { junior: plLayoutJunior, middle: plLayoutMiddle, senior: plLayoutSenior },
     javascript: { junior: plJavascriptJunior, middle: plJavascriptMiddle, senior: plJavascriptSenior },
     react: { junior: plReactJunior, middle: plReactMiddle, senior: plReactSenior },
+    "state-management": { junior: plStateManagementJunior, middle: plStateManagementMiddle, senior: plStateManagementSenior },
     nextjs: { junior: plNextjsJunior, middle: plNextjsMiddle, senior: plNextjsSenior },
     typescript: { junior: plTypescriptJunior, middle: plTypescriptMiddle, senior: plTypescriptSenior },
     patterns: { junior: plPatternsJunior, middle: plPatternsMiddle, senior: plPatternsSenior },

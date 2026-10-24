@@ -49,6 +49,11 @@ export const uk: Dictionary = {
       description: "Компоненти, хуки, рендеринг, Context, lazy loading, Redux Toolkit і TanStack Query.",
       tags: ["Hooks", "Context", "Redux Toolkit", "TanStack Query", "Lazy"],
     },
+    "state-management": {
+      title: "Керування станом",
+      description: "useState і useReducer, prop drilling, Context, Redux Toolkit, Zustand, а також серверний стан: TanStack Query, RTK Query, SWR і loader/action у React Router.",
+      tags: ["useState", "useReducer", "Context", "Redux Toolkit", "Zustand", "TanStack Query", "RTK Query", "SWR", "React Router"],
+    },
     nextjs: {
       title: "Next.js",
       description: "App Router, Server і Client Components, рендеринг, кешування, Server Actions, Next.js 16.",

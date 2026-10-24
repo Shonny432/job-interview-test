@@ -4,6 +4,7 @@ export type TopicId =
   | "layout"
   | "javascript"
   | "react"
+  | "state-management"
   | "nextjs"
   | "typescript"
   | "patterns"

@@ -50,6 +50,11 @@ export const en: Dictionary = {
       description: "Components, hooks, rendering, Context, lazy loading, Redux Toolkit and TanStack Query.",
       tags: ["Hooks", "Context", "Redux Toolkit", "TanStack Query", "Lazy"],
     },
+    "state-management": {
+      title: "State management",
+      description: "useState and useReducer, prop drilling, Context, Redux Toolkit, Zustand, and server state with TanStack Query, RTK Query, SWR and React Router loaders/actions.",
+      tags: ["useState", "useReducer", "Context", "Redux Toolkit", "Zustand", "TanStack Query", "RTK Query", "SWR", "React Router"],
+    },
     nextjs: {
       title: "Next.js",
       description: "App Router, Server and Client Components, rendering, caching, Server Actions, Next.js 16.",
