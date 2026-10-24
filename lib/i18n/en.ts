@@ -18,6 +18,26 @@ export const en: Dictionary = {
     hint: "If you close the tab or browser, the quiz resumes from the same question",
   },
 
+  feedback: {
+    open: "Feedback",
+    title: "Feedback",
+    intro: "Found a bug or have an idea to make the site better? Let me know — I read every message.",
+    kindLabel: "Message type",
+    kinds: { bug: "Bug", idea: "Idea" },
+    messageLabel: "Message",
+    bugPlaceholder: "What happened and how can I reproduce it?",
+    ideaPlaceholder: "What would you like to add or change?",
+    emailLabel: "Email for a reply (optional)",
+    emailHint: "Leave it if you'd like a reply",
+    submit: "Send",
+    sending: "Sending…",
+    cancel: "Cancel",
+    close: "Close",
+    success: "Thank you! Your message has been sent.",
+    error: "Couldn't send the message. Please try again a bit later.",
+    cooldown: "You've just sent a message. Please try again in a minute.",
+  },
+
   auth: {
     signIn: "Sign in",
     signInHint: "Sign in to keep your progress across devices",

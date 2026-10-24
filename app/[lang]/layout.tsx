@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AuthMenu } from "@/components/auth-menu";
+import { FeedbackDialog } from "@/components/feedback-dialog";
 import { I18nProvider } from "@/components/i18n-provider";
 import { InlineScript } from "@/components/inline-script";
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -83,8 +84,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             </div>
           </header>
           {children}
-          <footer className="mx-auto w-full max-w-5xl border-t border-zinc-200 px-4 py-6 sm:px-6 dark:border-zinc-800">
+          <footer className="mx-auto flex w-full max-w-5xl flex-col gap-4 border-t border-zinc-200 px-4 py-6 sm:flex-row sm:items-start sm:justify-between sm:px-6 dark:border-zinc-800">
             <ProgressToggle />
+            <FeedbackDialog />
           </footer>
         </I18nProvider>
       </body>

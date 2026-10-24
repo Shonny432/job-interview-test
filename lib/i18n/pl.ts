@@ -19,6 +19,26 @@ export const pl: Dictionary = {
     hint: "Jeśli zamkniesz kartę lub przeglądarkę, test wznowi się od tego samego pytania",
   },
 
+  feedback: {
+    open: "Opinie",
+    title: "Opinie i zgłoszenia",
+    intro: "Znalazłeś błąd lub masz pomysł, jak ulepszyć stronę? Napisz — czytam każdą wiadomość.",
+    kindLabel: "Rodzaj wiadomości",
+    kinds: { bug: "Błąd", idea: "Pomysł" },
+    messageLabel: "Wiadomość",
+    bugPlaceholder: "Co się stało i jak to powtórzyć?",
+    ideaPlaceholder: "Co chciałbyś dodać lub zmienić?",
+    emailLabel: "Email do odpowiedzi (opcjonalnie)",
+    emailHint: "Podaj, jeśli chcesz otrzymać odpowiedź",
+    submit: "Wyślij",
+    sending: "Wysyłanie…",
+    cancel: "Anuluj",
+    close: "Zamknij",
+    success: "Dziękuję! Wiadomość została wysłana.",
+    error: "Nie udało się wysłać wiadomości. Spróbuj ponownie za chwilę.",
+    cooldown: "Wiadomość została wysłana przed chwilą. Spróbuj ponownie za minutę.",
+  },
+
   auth: {
     signIn: "Zaloguj się",
     signInHint: "Zaloguj się, aby postępy zapisywały się na wszystkich urządzeniach",
