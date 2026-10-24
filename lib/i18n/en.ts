@@ -19,11 +19,11 @@ export const en: Dictionary = {
   },
 
   feedback: {
-    open: "Feedback",
+    open: "Send Feedback",
     title: "Feedback",
     intro: "Found a bug or have an idea to make the site better? Let me know — I read every message.",
     kindLabel: "Message type",
-    kinds: { bug: "Bug", idea: "Idea" },
+    kinds: { bug: "Bug", idea: "Idea or suggestion" },
     messageLabel: "Message",
     bugPlaceholder: "What happened and how can I reproduce it?",
     ideaPlaceholder: "What would you like to add or change?",

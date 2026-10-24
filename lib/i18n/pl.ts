@@ -24,7 +24,7 @@ export const pl: Dictionary = {
     title: "Opinie i zgłoszenia",
     intro: "Znalazłeś błąd lub masz pomysł, jak ulepszyć stronę? Napisz — czytam każdą wiadomość.",
     kindLabel: "Rodzaj wiadomości",
-    kinds: { bug: "Błąd", idea: "Pomysł" },
+    kinds: { bug: "Błąd", idea: "Pomysł lub sugestia" },
     messageLabel: "Wiadomość",
     bugPlaceholder: "Co się stało i jak to powtórzyć?",
     ideaPlaceholder: "Co chciałbyś dodać lub zmienić?",
